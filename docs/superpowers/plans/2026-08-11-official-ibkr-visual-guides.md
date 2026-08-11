@@ -386,7 +386,7 @@ git add README.md tests/production-contracts.test.js docs/superpowers/plans/2026
 git commit -m "docs: verify official IBKR visual guides"
 ```
 
-- [ ] **Step 7: Merge locally after final verification**
+- [x] **Step 7: Merge locally after final verification**
 
 Use the finishing-a-development-branch workflow. Merge `codex/ibkr-official-visual-guides` into `master`, rerun `npm.cmd test` on the merged result, and delete the feature branch only after a green post-merge suite.
 
