@@ -6,6 +6,7 @@ import {
   ALLOWED_VISUAL_HOSTS,
   PLATFORM_VISUALS,
   getMissionVisuals,
+  getWalkthroughVisuals,
   isAllowedOfficialVisualUrl,
   validatePlatformVisual,
 } from "../data/platform-visuals.js";
@@ -49,6 +50,29 @@ test("visual URL validation rejects insecure and third-party assets", () => {
 test("the visual catalog is immutable", () => {
   assert.equal(Object.isFrozen(PLATFORM_VISUALS), true);
   assert.ok(PLATFORM_VISUALS.every((visual) => Object.isFrozen(visual) && Object.isFrozen(visual.missionIds) && Object.isFrozen(visual.callouts)));
+});
+
+test("walkthrough visuals resolve immutable valid practice-step links", () => {
+  for (const workflow of PLATFORM_WORKFLOWS) {
+    const linked = getWalkthroughVisuals(workflow.id);
+    assert.ok(linked.length >= 1, workflow.id);
+    for (const item of linked) {
+      assert.equal(item.visual.missionIds.includes(workflow.id), true);
+      assert.ok(item.steps.length >= 1);
+      assert.ok(item.steps.every((step) => Number.isInteger(step) && step >= 1 && step <= workflow.steps.length));
+      assert.ok(item.caption.length >= 20);
+      assert.ok(Object.isFrozen(item));
+      assert.ok(Object.isFrozen(item.steps));
+    }
+  }
+});
+
+test("visual step-link keys exactly match mapped workflows", () => {
+  for (const visual of PLATFORM_VISUALS) {
+    assert.deepEqual(Object.keys(visual.stepLinks).sort(), [...visual.missionIds].sort(), visual.id);
+    assert.ok(Object.isFrozen(visual.stepLinks));
+    assert.ok(Object.values(visual.stepLinks).every((link) => Object.isFrozen(link) && Object.isFrozen(link.steps)));
+  }
 });
 
 test("TWS risk review uses the current official Performance Profile asset", () => {
