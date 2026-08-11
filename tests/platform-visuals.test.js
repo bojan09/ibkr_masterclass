@@ -75,6 +75,32 @@ test("visual step-link keys exactly match mapped workflows", () => {
   }
 });
 
+const SETUP_WALKTHROUGHS = new Set(["desktop-install", "desktop-paper-check", "tws-install", "tws-paper-check"]);
+
+test("hands-on Desktop walkthroughs have at least two curated official visuals", () => {
+  for (const workflow of PLATFORM_WORKFLOWS.filter(({ platformId }) => platformId === "ibkr-desktop")) {
+    const minimum = SETUP_WALKTHROUGHS.has(workflow.id) ? 1 : 2;
+    assert.ok(getWalkthroughVisuals(workflow.id).length >= minimum, workflow.id);
+  }
+});
+
+test("Desktop Watchlist and Strategy Builder visuals follow learning order", () => {
+  assert.deepEqual(getWalkthroughVisuals("desktop-watchlist").map(({ visual }) => visual.id), [
+    "desktop-watchlist",
+    "desktop-watchlist-create",
+    "desktop-watchlist-contract-picker",
+    "desktop-watchlist-view-menu",
+  ]);
+  assert.deepEqual(getWalkthroughVisuals("desktop-strategy-builder").map(({ visual }) => visual.id), [
+    "desktop-strategy-builder-open",
+    "desktop-strategy-builder-select",
+    "desktop-strategy-builder-legs",
+    "desktop-strategy-builder-order",
+  ]);
+  const desktopUrls = PLATFORM_VISUALS.filter(({ platformId }) => platformId === "ibkr-desktop").map(({ imageUrl }) => imageUrl);
+  assert.equal(new Set(desktopUrls).size, desktopUrls.length);
+});
+
 test("TWS risk review uses the current official Performance Profile asset", () => {
   const [visual] = getMissionVisuals("tws-risk-review");
   assert.equal(visual.sourceUrl, "https://www.ibkrguides.com/traderworkstation/performance-profile.htm");
