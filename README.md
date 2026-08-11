@@ -172,4 +172,4 @@ Keep changes testable and never commit secrets, real account data, generated dep
 
 ## Implementation status
 
-All eight delivery phases in the Platform Mastery redesign are complete: theme infrastructure, genuine-platform reset, sourced mission engine, full Desktop track, full TWS/Mosaic track, cross-platform mapping, evidence-based assessment, and production verification. The learner-facing curriculum remains a separate thirteen-phase educational roadmap.
+All eight delivery phases in the Platform Mastery redesign are complete: theme infrastructure, genuine-platform reset, sourced walkthrough engine, full Desktop track, full TWS/Mosaic track, cross-platform mapping, evidence-based assessment, and production verification. The learner-facing curriculum remains a separate thirteen-phase educational roadmap.

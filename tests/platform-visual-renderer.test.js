@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { nextGalleryIndex, renderWalkthroughVisuals } from "../js/platform-visuals.js";
+import { nextGalleryIndex, nextTabIndex, renderWalkthroughVisuals } from "../js/platform-visuals.js";
 
 test("walkthrough visuals render a selected step-linked gallery", () => {
   const html = renderWalkthroughVisuals("desktop-watchlist");
@@ -30,6 +30,11 @@ test("gallery panels retain official attribution, accessibility, and recovery", 
   assert.match(html, /Mapping reviewed/);
   assert.equal([...html.matchAll(/role="tabpanel"/g)].length, 4);
   assert.equal([...html.matchAll(/class="mission-visual-panel"[^>]* hidden/g)].length, 3);
+  const images = [...html.matchAll(/<img\s[^>]+>/g)].map((match) => match[0]);
+  assert.equal(images.length, 8);
+  assert.ok(images.every((tag) => /loading="lazy"/.test(tag)));
+  assert.ok(images.every((tag) => /decoding="async"/.test(tag)));
+  assert.ok(images.every((tag) => /referrerpolicy="no-referrer"/.test(tag)));
 });
 
 test("gallery thumbnails reference real panels with one selected tab", () => {
@@ -65,4 +70,11 @@ test("gallery selection clamps to available visual indexes", () => {
   assert.equal(nextGalleryIndex(0, 1, 3), 1);
   assert.equal(nextGalleryIndex(2, 1, 3), 2);
   assert.equal(nextGalleryIndex(2, -1, 3), 1);
+});
+
+test("gallery tab navigation wraps for arrow-key access", () => {
+  assert.equal(nextTabIndex(0, -1, 4), 3);
+  assert.equal(nextTabIndex(3, 1, 4), 0);
+  assert.equal(nextTabIndex(1, 1, 4), 2);
+  assert.equal(nextTabIndex(1, -1, 4), 0);
 });

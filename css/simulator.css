@@ -99,7 +99,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
-  color: #7f8a97;
+  color: var(--color-muted);
   cursor: pointer;
   font-size: 8px;
 }
@@ -247,7 +247,7 @@
 }
 
 .sim-table thead th {
-  color: #717d8b;
+  color: var(--color-subtle);
   font-family: var(--font-mono);
   font-size: 7px;
   text-transform: uppercase;
@@ -1070,12 +1070,12 @@
 }
 
 .payoff-chart__zero {
-  stroke: #465260;
+  stroke: var(--color-border);
   stroke-dasharray: 4 4;
 }
 
 .payoff-chart text {
-  fill: #6e7a87;
+  fill: var(--color-subtle);
   font-family: var(--font-mono);
   font-size: 8px;
 }

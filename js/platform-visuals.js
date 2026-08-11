@@ -71,7 +71,7 @@ function renderVisualPanel(item, walkthroughId, index) {
     </div>
     <dialog class="mission-visual-dialog" data-visual-dialog="${id}" aria-label="Enlarged official screenshot: ${escapeHtml(visual.title)}">
       <header><div><p class="eyebrow">Official IBKR screenshot</p><h2>${escapeHtml(visual.title)}</h2></div><button type="button" data-close-visual aria-label="Close enlarged screenshot">×</button></header>
-      <div><img src="${escapeHtml(visual.imageUrl)}" alt="${escapeHtml(visual.alt)}" decoding="async" referrerpolicy="no-referrer"></div>
+      <div><img src="${escapeHtml(visual.imageUrl)}" alt="${escapeHtml(visual.alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer"></div>
       <footer><p>${escapeHtml(visual.productVersionNote)}</p><a href="${escapeHtml(visual.sourceUrl)}" target="_blank" rel="noreferrer">Open ${escapeHtml(visual.sourceLabel)}</a></footer>
     </dialog>
   </article>`;
@@ -80,6 +80,11 @@ function renderVisualPanel(item, walkthroughId, index) {
 export function nextGalleryIndex(index, delta, count) {
   if (!Number.isInteger(count) || count <= 0) return 0;
   return Math.min(Math.max(index + delta, 0), count - 1);
+}
+
+export function nextTabIndex(index, delta, count) {
+  if (!Number.isInteger(count) || count <= 0) return 0;
+  return (index + delta + count) % count;
 }
 
 export function renderWalkthroughVisuals(walkthroughId) {
@@ -162,13 +167,32 @@ export function bindWalkthroughVisuals(container) {
     event.target.closest("[data-visual-panel]")?.classList.add("is-image-error");
   };
 
+  const handleKeydown = (event) => {
+    const tab = event.target.closest?.("[data-gallery-select]");
+    const gallery = tab?.closest?.("[data-walkthrough-gallery]");
+    if (!tab || !gallery) return;
+    const tabs = [...gallery.querySelectorAll("[data-gallery-select]")];
+    const current = Number(tab.dataset.gallerySelect);
+    let index;
+    if (["ArrowRight", "ArrowDown"].includes(event.key)) index = nextTabIndex(current, 1, tabs.length);
+    else if (["ArrowLeft", "ArrowUp"].includes(event.key)) index = nextTabIndex(current, -1, tabs.length);
+    else if (event.key === "Home") index = 0;
+    else if (event.key === "End") index = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    selectVisual(gallery, index);
+    tabs[index]?.focus();
+  };
+
   const restoreFocus = (event) => openers.get(event.currentTarget)?.focus();
   dialogs.forEach((dialog) => dialog.addEventListener("close", restoreFocus));
   container.addEventListener("click", handleClick);
+  container.addEventListener("keydown", handleKeydown);
   container.addEventListener("error", handleImageError, true);
 
   return () => {
     container.removeEventListener("click", handleClick);
+    container.removeEventListener("keydown", handleKeydown);
     container.removeEventListener("error", handleImageError, true);
     dialogs.forEach((dialog) => {
       dialog.removeEventListener("close", restoreFocus);

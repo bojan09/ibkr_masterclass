@@ -88,7 +88,7 @@ ol {
 ::-webkit-scrollbar-thumb {
   border: 3px solid transparent;
   border-radius: 99px;
-  background: #36404e;
+  background: var(--color-scrollbar);
   background-clip: padding-box;
 }
 
@@ -124,7 +124,7 @@ ol {
   padding: 14px 18px;
   border: 1px solid var(--color-warning);
   border-radius: var(--radius-md);
-  background: #2a2112;
-  color: #ffe0a5;
+  background: var(--color-noscript-bg);
+  color: var(--color-noscript-text);
   text-align: center;
 }
