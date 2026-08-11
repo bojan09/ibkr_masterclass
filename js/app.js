@@ -144,12 +144,12 @@ function startApplication() {
       renderPlatformCompare(pageContent);
     } else if (name === "platforms/desktop/missions" || name === "platforms/tws/missions") {
       const platformId = name.includes("/desktop/") ? "ibkr-desktop" : "tws-mosaic";
-      breadcrumbSection.textContent = "Official-app missions";
+      breadcrumbSection.textContent = "Official-app walkthroughs";
       breadcrumbPage.textContent = platformId === "ibkr-desktop" ? "IBKR Desktop" : "TWS / Mosaic";
-      document.title = `${breadcrumbPage.textContent} missions · IBKR Platform Mastery`;
+      document.title = `${breadcrumbPage.textContent} walkthroughs · IBKR Platform Mastery`;
       renderPlatformMissions(pageContent, { storage, platformId });
     } else if (platformWorkflow) {
-      breadcrumbSection.textContent = "Official-app mission";
+      breadcrumbSection.textContent = "Official-app walkthrough";
       breadcrumbPage.textContent = platformWorkflow.title;
       document.title = `${platformWorkflow.title} · IBKR Platform Mastery`;
       pageCleanup = renderPlatformMissions(pageContent, { storage, platformId: platformWorkflow.platformId, workflowId: platformWorkflow.id });

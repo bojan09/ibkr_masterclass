@@ -33,6 +33,7 @@ The companion remains an independent educational aid. It does not imitate a brok
 - Retain source dates, review dates, official guide links, callouts, enlargement, loading feedback, and image-error fallbacks.
 - Verify current official source pages and image URLs during implementation.
 - Support Light, Dark, and System theme choices at desktop and mobile widths.
+- Correct shared surface gradients and muted text that currently remain dark-specific in Light mode.
 
 ### Not included
 
@@ -162,6 +163,14 @@ The main UX changes are:
 
 Official screenshots retain their original colors in both application themes. Surrounding chrome adapts to Light or Dark mode.
 
+### Light-mode correction
+
+The existing Light theme changes semantic color variables, but several dashboard, lesson, simulator, and assessment surfaces bypass those variables with hard-coded dark gradient endpoints. The result is dark cards with Light-theme text colors and unacceptable contrast.
+
+The implementation will introduce semantic tokens for neutral panel gradients, accented panel gradients, image canvases, and subdued text. Shared production surfaces will use those tokens rather than dark-only hexadecimal endpoints. Light mode will use white-to-cool-gray surfaces with dark readable text; Dark mode will preserve the established near-black visual character. Decorative locked-state opacity must not reduce essential titles, descriptions, or status text below readable contrast.
+
+Verification covers the dashboard roadmap and learning tracks shown in the reported defect, plus representative lessons, simulators, assessments, and Walkthrough galleries. The correction must not recolor official IBKR screenshots.
+
 ## Terminology Migration
 
 All current learner-facing production copy will use:
@@ -221,7 +230,8 @@ The feature is complete when:
 5. Catalog grouping, progress, Prepare/Recognize/Practice/Confirm structure, provenance, enlargement, and failure recovery work at desktop and mobile widths.
 6. Every image and source passes the official-host and availability audit at implementation time.
 7. Light, Dark, and System themes remain supported.
-8. The complete automated and visual verification gates pass before local merge.
+8. Light mode contains no shared card whose final background still depends on a dark-only literal, and its essential text remains readable on roadmap, track, lesson, simulator, assessment, and Walkthrough surfaces.
+9. The complete automated, UI/UX, accessibility, performance, and bug-sweep verification gates pass before local merge.
 
 ## Delivery Boundary
 

@@ -11,6 +11,9 @@ test("static shell provides security, accessibility, and responsive foundations"
   const html = read("index.html");
   const components = read("css/components.css");
   const responsive = read("css/responsive.css");
+  const variables = read("css/variables.css");
+  const lessons = read("css/lessons.css");
+  const simulator = read("css/simulator.css");
   assert.match(html, /<html lang="en"[^>]*>/);
   assert.match(html, /Content-Security-Policy/);
   assert.match(html, /class="skip-link"/);
@@ -27,11 +30,23 @@ test("static shell provides security, accessibility, and responsive foundations"
   assert.match(read("css/responsive.css"), /\.platform-compare \.page-hero[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
   assert.match(read("css/responsive.css"), /\.topbar \.data-badge[\s\S]*display: none/);
   assert.match(html, /img-src 'self' data: https:\/\/www\.ibkrguides\.com https:\/\/ibkrguides\.com https:\/\/www\.interactivebrokers\.com https:\/\/interactivebrokers\.com/);
-  assert.match(components, /\.mission-visual-card/);
+  assert.match(components, /\.mission-visual-panel/);
   assert.match(components, /\.mission-visual-marker/);
-  assert.match(components, /\.mission-visual-card\.is-image-error/);
+  assert.match(components, /\.mission-visual-panel\.is-image-error/);
   assert.match(components, /\.mission-visual-dialog::backdrop/);
   assert.match(responsive, /\.mission-visual-layout/);
+  assert.match(components, /\.walkthrough-steps/);
+  assert.match(components, /\.mission-visual-gallery/);
+  assert.match(components, /\.mission-visual-thumbnails/);
+  assert.match(components, /\[aria-selected="true"\]/);
+  assert.match(components, /\.mission-visual-panel\[hidden\]/);
+  assert.match(responsive, /\.mission-visual-thumbnails[\s\S]*overflow-x:\s*auto/);
+  assert.match(responsive, /\.mission-visual-gallery__controls[\s\S]*min-height:\s*44px/);
+  assert.match(variables, /--gradient-panel:/);
+  assert.match(variables, /:root\[data-theme="light"\][\s\S]*--gradient-panel:/);
+  for (const [name, css] of Object.entries({ components, lessons, simulator })) {
+    assert.doesNotMatch(css, /background[^;]*(?:#0d1218|#0e1319|#0c1016|#10151c)/i, name);
+  }
 });
 
 test("every local stylesheet and script referenced by index exists", () => {

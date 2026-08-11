@@ -99,7 +99,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
-  color: #7f8a97;
+  color: var(--color-muted);
   cursor: pointer;
   font-size: 8px;
 }
@@ -247,7 +247,7 @@
 }
 
 .sim-table thead th {
-  color: #717d8b;
+  color: var(--color-subtle);
   font-family: var(--font-mono);
   font-size: 7px;
   text-transform: uppercase;
@@ -731,7 +731,7 @@
   gap: 22px;
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, var(--color-panel), #0d1218);
+  background: var(--gradient-panel);
 }
 
 .greek-guide header h2,
@@ -1070,12 +1070,12 @@
 }
 
 .payoff-chart__zero {
-  stroke: #465260;
+  stroke: var(--color-border);
   stroke-dasharray: 4 4;
 }
 
 .payoff-chart text {
-  fill: #6e7a87;
+  fill: var(--color-subtle);
   font-family: var(--font-mono);
   font-size: 8px;
 }
@@ -1244,7 +1244,7 @@
   gap: 12px;
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, var(--color-panel), #0d1218);
+  background: var(--gradient-panel);
 }
 
 .option-rights > div {
@@ -1477,7 +1477,7 @@
   gap: 22px;
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, var(--color-panel), #0d1218);
+  background: var(--gradient-panel);
 }
 
 .expiration-workflow ol {
@@ -1860,7 +1860,7 @@
   gap: 28px;
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, var(--color-panel), #0d1218);
+  background: var(--gradient-panel);
 }
 
 .order-academy > header > p:last-child,
@@ -2344,7 +2344,7 @@
 .combo-result--filled { border-left-color: var(--color-success); }
 .combo-result strong { font-size: 11px; text-transform: capitalize; }
 .combo-result p, .combo-result li { margin-top: 4px; color: var(--color-muted); font-size: 8px; line-height: 1.5; }
-.position-management { display: grid; padding: clamp(24px, 4vw, 40px); gap: 20px; border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--color-panel), #0d1218); }
+.position-management { display: grid; padding: clamp(24px, 4vw, 40px); gap: 20px; border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: var(--gradient-panel); }
 .position-management header h2 { font-size: 25px; }
 .position-management header > p:last-child { color: var(--color-muted); font-size: 9px; }
 .position-management > div { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -2374,7 +2374,7 @@
 .risk-topic-grid ul { display: grid; margin-top: 8px; gap: 4px; }
 .risk-topic-grid li::before { margin-right: 5px; color: var(--color-success); content: "✓"; }
 .risk-calculator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.risk-calculator { display: grid; padding: clamp(22px, 3vw, 30px); gap: 17px; border: 1px solid var(--color-border-soft); border-radius: 9px; background: linear-gradient(145deg, var(--color-panel), #0d1218); }
+.risk-calculator { display: grid; padding: clamp(22px, 3vw, 30px); gap: 17px; border: 1px solid var(--color-border-soft); border-radius: 9px; background: var(--gradient-panel); }
 .risk-calculator h2 { font-size: 21px; }
 .risk-calculator > div:first-child > p:last-child { color: var(--color-muted); font-size: 8px; line-height: 1.55; }
 .risk-calculator form { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -2408,7 +2408,7 @@
 .practice-stats { display: flex; gap: 7px; }
 .practice-stats span { display: grid; min-width: 76px; padding: 10px; gap: 3px; border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-subtle); font-size: 6px; text-transform: uppercase; }
 .practice-stats strong { color: var(--color-text); font-size: 14px; }
-.paper-curriculum, .practice-exercises, .trade-checklist-page, .journal-workspace { padding: clamp(24px, 4vw, 40px); border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--color-panel), #0d1218); }
+.paper-curriculum, .practice-exercises, .trade-checklist-page, .journal-workspace { padding: clamp(24px, 4vw, 40px); border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: var(--gradient-panel); }
 .paper-curriculum header h2, .practice-exercises header h2, .trade-checklist-page h2, .journal-workspace h2 { font-size: 25px; }
 .paper-curriculum header > p:last-child, .trade-checklist-page header p, .journal-form-card > div > p:last-child { color: var(--color-muted); font-size: 9px; line-height: 1.55; }
 .paper-curriculum ol { display: grid; margin-top: 22px; grid-template-columns: repeat(5, 1fr); gap: 8px; counter-reset: paper; }
@@ -2458,7 +2458,7 @@
 @media (max-width: 640px) { .practice-stats { width: 100%; } .practice-stats span { min-width: 0; flex: 1; } .paper-curriculum ol, .practice-exercises > div, .trade-checklist-items { grid-template-columns: 1fr; } .trade-checklist-page header { align-items: flex-start; flex-direction: column; } }
 
 .assessment-page { display: grid; gap: 17px; }
-.readiness-dashboard { display: grid; grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr); border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--color-panel), #0d1218); }
+.readiness-dashboard { display: grid; grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr); border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: var(--gradient-panel); }
 .readiness-overall { padding: clamp(24px, 4vw, 40px); border-right: 1px solid var(--color-border-soft); }
 .readiness-overall > strong { font-size: 62px; font-weight: 500; }
 .readiness-overall > span { color: var(--color-subtle); font-family: var(--font-mono); font-size: 11px; }
@@ -2494,7 +2494,7 @@
 .answer-explanation { margin-top: 7px; padding: 13px; border-left: 2px solid var(--color-info); background: rgb(77 156 255 / 0.04); }
 .answer-explanation strong { color: var(--color-info); font-size: 8px; }
 .answer-explanation p { margin: 4px 0 0; color: var(--color-muted); font-size: 8px; line-height: 1.55; }
-.assessment-challenges { display: grid; padding: clamp(24px, 4vw, 40px); gap: 20px; border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: linear-gradient(145deg, var(--color-panel), #0d1218); }
+.assessment-challenges { display: grid; padding: clamp(24px, 4vw, 40px); gap: 20px; border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: var(--gradient-panel); }
 .assessment-challenges header h2 { font-size: 25px; }
 .assessment-challenges header > p:last-child { color: var(--color-muted); font-size: 9px; }
 .assessment-challenges > div { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }

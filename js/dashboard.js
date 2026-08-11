@@ -159,7 +159,7 @@ export function renderDashboard(container, state) {
             Curriculum 01–13
           </div>
           <h1 id="dashboard-title">Master the genuine <span>IBKR platforms.</span></h1>
-          <p class="hero__subtitle">Practice in official IBKR Desktop and TWS paper applications with sourced missions, then use Concept Labs for order, options, and risk mechanics.</p>
+          <p class="hero__subtitle">Practice in official IBKR Desktop and TWS paper applications with sourced Walkthroughs, then use Concept Labs for order, options, and risk mechanics.</p>
           <div class="hero__actions">
             <a class="button button--primary" href="#/platforms">Open platform tracks <span aria-hidden="true">→</span></a>
             <a class="button button--secondary" href="#/${nextLesson.route}">Continue foundations</a>

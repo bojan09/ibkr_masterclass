@@ -15,7 +15,7 @@ export const ASSESSMENT_QUIZZES = [
   ]},
   { id: "paper-safety-check", title: "Paper-session safety", domain: "Platform safety", questions: [
     q("s1", "What proves that an order exercise is safe to begin?", ["The portfolio is empty", "The official application visibly identifies Paper Trading", "The chart uses delayed data"], 1, "Only positive account-mode identification in the genuine application establishes the intended paper session."),
-    q("s2", "A mission says Paper Trading but the official application mode is unclear. What should you do?", ["Continue with one small order", "Stop and verify or log back in", "Assume the website controls the account"], 1, "The website has no broker connection and cannot establish account mode; uncertainty requires stopping before any order action.", true),
+    q("s2", "A walkthrough says Paper Trading but the official application mode is unclear. What should you do?", ["Continue with one small order", "Stop and verify or log back in", "Assume the website controls the account"], 1, "The website has no broker connection and cannot establish account mode; uncertainty requires stopping before any order action.", true),
     q("s3", "Does a paper fill guarantee comparable live execution?", ["Yes", "Only for limit orders", "No"], 2, "Paper execution can differ from live routing, queue position, liquidity, slippage, and exchange behavior."),
     q("s4", "What account information should this website store?", ["Broker credentials", "Account number and balance", "Only local learning evidence"], 2, "The companion stores checklist evidence and course progress, never brokerage credentials or confidential account data."),
   ]},

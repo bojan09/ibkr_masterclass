@@ -35,7 +35,7 @@ export function deriveReadiness(state) {
 }
 
 function renderReadiness(readiness) {
-  const domains = [{ label: "Knowledge", value: readiness.knowledge }, { label: "Practice", value: readiness.practice }, { label: "Process", value: readiness.process }, { label: "Reflection", value: readiness.reflection }, { label: "IBKR Desktop missions", value: readiness.desktop }, { label: "TWS missions", value: readiness.tws }, { label: "Cross-platform", value: readiness.crossPlatform }];
+  const domains = [{ label: "Knowledge", value: readiness.knowledge }, { label: "Practice", value: readiness.practice }, { label: "Process", value: readiness.process }, { label: "Reflection", value: readiness.reflection }, { label: "IBKR Desktop walkthroughs", value: readiness.desktop }, { label: "TWS walkthroughs", value: readiness.tws }, { label: "Cross-platform", value: readiness.crossPlatform }];
   return `<section class="readiness-dashboard"><div class="readiness-overall"><p class="eyebrow">Curriculum evidence</p><strong>${readiness.overall}</strong><span>/ 100</span><h2>${readiness.status}</h2><p>This score measures completed evidence inside IBKR Platform Mastery. It is not trading authorization, suitability, a prediction, or a guarantee of safety.</p></div><div class="readiness-domains">${domains.map((domain) => `<article><div><span>${domain.label}</span><strong>${domain.value}</strong></div><div class="meter" role="progressbar" aria-label="${domain.label} evidence" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${domain.value}"><i style="width:${domain.value}%"></i></div></article>`).join("")}</div></section>`;
 }
 
@@ -44,7 +44,7 @@ function renderQuiz(quiz, result) {
 }
 
 function renderChallenges() {
-  return `<section class="assessment-challenges"><header><p class="eyebrow">Practical challenges</p><h2>Demonstrate the workflow</h2><p>Platform missions require observable evidence in genuine paper applications. Concept Labs test financial mechanics separately.</p></header><div>${SIMULATOR_CHALLENGES.map((challenge, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${challenge.title}</h3><p>${challenge.goal}</p><a href="#/${challenge.route}">Open challenge →</a></article>`).join("")}</div></section>`;
+  return `<section class="assessment-challenges"><header><p class="eyebrow">Practical challenges</p><h2>Demonstrate the workflow</h2><p>Platform Walkthroughs require observable evidence in genuine paper applications. Concept Labs test financial mechanics separately.</p></header><div>${SIMULATOR_CHALLENGES.map((challenge, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${challenge.title}</h3><p>${challenge.goal}</p><a href="#/${challenge.route}">Open challenge →</a></article>`).join("")}</div></section>`;
 }
 
 export function renderAssessmentPage(container, { storage } = {}) {
@@ -53,7 +53,7 @@ export function renderAssessmentPage(container, { storage } = {}) {
   const render = () => {
     const readiness = deriveReadiness(storage.get());
     const selected = ASSESSMENT_QUIZZES.find((quiz) => quiz.id === selectedQuizId);
-    container.innerHTML = `<article class="assessment-page"><header class="simulator-intro"><div><p class="eyebrow">Phase 13 · Final assessment</p><h1>Explain the state before acting</h1><p>Quizzes, sourced platform missions, and Concept Labs test contract, order, options, and risk reasoning—not market prediction.</p></div><span class="simulation-badge">EDUCATIONAL ASSESSMENT</span></header>${renderReadiness(readiness)}<nav class="assessment-picker" aria-label="Assessments">${ASSESSMENT_QUIZZES.map((quiz) => `<button type="button" data-select-quiz="${quiz.id}" class="${quiz.id === selectedQuizId ? "is-active" : ""}"><span>${quiz.domain}</span><strong>${quiz.title}</strong><small>${storage.get("quizScores")[quiz.id]?.percent ?? "—"}% best</small></button>`).join("")}</nav>${renderQuiz(selected, currentResult)}${renderChallenges()}</article>`;
+    container.innerHTML = `<article class="assessment-page"><header class="simulator-intro"><div><p class="eyebrow">Phase 13 · Final assessment</p><h1>Explain the state before acting</h1><p>Quizzes, sourced platform Walkthroughs, and Concept Labs test contract, order, options, and risk reasoning—not market prediction.</p></div><span class="simulation-badge">EDUCATIONAL ASSESSMENT</span></header>${renderReadiness(readiness)}<nav class="assessment-picker" aria-label="Assessments">${ASSESSMENT_QUIZZES.map((quiz) => `<button type="button" data-select-quiz="${quiz.id}" class="${quiz.id === selectedQuizId ? "is-active" : ""}"><span>${quiz.domain}</span><strong>${quiz.title}</strong><small>${storage.get("quizScores")[quiz.id]?.percent ?? "—"}% best</small></button>`).join("")}</nav>${renderQuiz(selected, currentResult)}${renderChallenges()}</article>`;
   };
   const handleClick = (event) => {
     const button = event.target.closest("button");
