@@ -77,11 +77,42 @@ test("visual step-link keys exactly match mapped workflows", () => {
 
 const SETUP_WALKTHROUGHS = new Set(["desktop-install", "desktop-paper-check", "tws-install", "tws-paper-check"]);
 
-test("hands-on Desktop walkthroughs have at least two curated official visuals", () => {
-  for (const workflow of PLATFORM_WORKFLOWS.filter(({ platformId }) => platformId === "ibkr-desktop")) {
+test("hands-on walkthroughs have at least two curated official visuals", () => {
+  for (const workflow of PLATFORM_WORKFLOWS) {
     const minimum = SETUP_WALKTHROUGHS.has(workflow.id) ? 1 : 2;
     assert.ok(getWalkthroughVisuals(workflow.id).length >= minimum, workflow.id);
   }
+});
+
+test("official catalog contains at least fifty distinct screenshot records", () => {
+  assert.ok(PLATFORM_VISUALS.length >= 50);
+  assert.equal(new Set(PLATFORM_VISUALS.map(({ imageUrl }) => imageUrl)).size, PLATFORM_VISUALS.length);
+  assert.ok(PLATFORM_WORKFLOWS.every(({ id }) => getWalkthroughVisuals(id).length <= 4));
+});
+
+test("high-risk TWS walkthroughs resolve the intended official screen sequence", () => {
+  assert.deepEqual(getWalkthroughVisuals("tws-order-preview").map(({ visual }) => visual.id), [
+    "tws-order-entry",
+    "tws-order-advanced-menu",
+    "tws-order-margin-check",
+  ]);
+  assert.deepEqual(getWalkthroughVisuals("tws-attached-orders").map(({ visual }) => visual.id), [
+    "tws-activity",
+    "tws-activity-pending-menu",
+    "tws-order-bracket",
+  ]);
+  assert.deepEqual(getWalkthroughVisuals("tws-activity").map(({ visual }) => visual.id), [
+    "tws-activity",
+    "tws-activity-orders",
+    "tws-activity-trades",
+    "tws-activity-summary",
+  ]);
+  assert.deepEqual(getWalkthroughVisuals("tws-risk-review").map(({ visual }) => visual.id), [
+    "tws-performance-profile",
+    "tws-order-margin-check",
+    "tws-performance-scenarios",
+    "tws-strategy-performance-graph",
+  ]);
 });
 
 test("Desktop Watchlist and Strategy Builder visuals follow learning order", () => {
