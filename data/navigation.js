@@ -111,7 +111,7 @@ export const NAVIGATION_GROUPS = [
     label: "Practice",
     shortLabel: "Practice",
     items: [
-      { label: "Platform mission companion", route: "practice/desktop-simulator" },
+      { label: "Platform walkthrough companion", route: "practice/desktop-simulator" },
       { label: "Order simulator", route: "practice/order-simulator" },
       { label: "Options chain simulator", route: "practice/options-chain" },
       { label: "Payoff simulator", route: "practice/payoff-simulator" },

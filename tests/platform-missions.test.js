@@ -2,13 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { PLATFORM_WORKFLOWS, getPlatformWorkflows, getWorkflow, getWorkflowByRoute } from "../data/platform-workflows.js";
-import { canCompleteWorkflow, completeWorkflow, isWorkflowStale, renderWorkflow } from "../js/platform-missions.js";
+import { canCompleteWorkflow, completeWorkflow, isWorkflowStale, renderCatalog, renderWorkflow } from "../js/platform-missions.js";
 import { createStorage } from "../js/storage.js";
 
 function memoryBackend() {
   const values = new Map();
   return { getItem: (key) => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: (key) => values.delete(key) };
 }
+
+const visibleText = (html) => html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 test("every real-app mission carries safety, evidence, recovery, and official sources", () => {
   assert.ok(PLATFORM_WORKFLOWS.length >= 2);
@@ -79,13 +81,52 @@ test("submission-capable missions require four independent order safety checks",
   }
 });
 
-test("mission pages place official visuals before genuine-application steps", () => {
+test("walkthrough pages place official visuals before genuine-application practice", () => {
   const workflow = getWorkflow("desktop-watchlist");
   const storage = createStorage({ backend: memoryBackend(), key: "visual-mission-state" });
   const html = renderWorkflow(workflow, storage);
   const visualIndex = html.indexOf("Recognize the real screen");
-  const stepIndex = html.indexOf("Perform in the genuine application");
+  const stepIndex = html.indexOf("In the genuine application");
   assert.ok(visualIndex > 0);
   assert.ok(stepIndex > visualIndex);
   assert.match(html, /Official IBKR screenshot/);
+});
+
+test("catalog groups Walkthroughs and reports saved progress", () => {
+  const storage = createStorage({ backend: memoryBackend(), key: "walkthrough-catalog" });
+  const workflow = getPlatformWorkflows("ibkr-desktop")[0];
+  completeWorkflow(storage, workflow.id, workflow.evidence.map(({ id }) => id), "2026-08-11T12:00:00.000Z");
+  const html = renderCatalog("ibkr-desktop", storage);
+  assert.match(html, /Official-app walkthroughs/);
+  assert.match(html, /1 of 15 completed/);
+  assert.match(html, />Orientation</);
+  assert.match(html, />Trading</);
+  assert.match(html, />Options</);
+  assert.match(html, /official visuals/);
+  assert.doesNotMatch(visibleText(html), /\bmissions?\b/i);
+});
+
+test("walkthrough detail follows Prepare Recognize Practice Confirm order", () => {
+  const storage = createStorage({ backend: memoryBackend(), key: "walkthrough-detail" });
+  const html = renderWorkflow(getWorkflow("desktop-watchlist"), storage);
+  const labels = ["Prepare", "Recognize", "Practice", "Confirm"];
+  const indexes = labels.map((label) => html.indexOf(`>${label}<`));
+  assert.ok(indexes.every((index) => index >= 0));
+  assert.deepEqual(indexes, [...indexes].sort((a, b) => a - b));
+  assert.doesNotMatch(visibleText(html), /\bmission\b/i);
+});
+
+test("pre-existing platform evidence remains completed without migration", () => {
+  const storage = createStorage({ backend: memoryBackend(), key: "walkthrough-existing-evidence" });
+  const workflow = getWorkflow("desktop-watchlist");
+  const record = {
+    completedAt: "2026-08-11T12:00:00.000Z",
+    verifiedAsOf: workflow.asOf,
+    evidence: workflow.evidence.map(({ id }) => id),
+  };
+  storage.set("platformEvidence", { [workflow.id]: record });
+  const html = renderWorkflow(workflow, storage);
+  assert.match(html, /Update evidence/);
+  assert.match(html, /Completed 8\/11\/2026/);
+  assert.deepEqual(storage.get("platformEvidence")[workflow.id], record);
 });
