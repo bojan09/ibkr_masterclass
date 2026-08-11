@@ -17,6 +17,7 @@ import { createStorage } from "./storage.js";
 import { createSidebarController } from "./ui.js";
 import { createThemeController } from "./theme.js";
 import { renderDesktopSimulator } from "./desktop-simulator.js";
+import { renderPlatformHub } from "./platform-hub.js";
 import { renderOrderSimulator } from "./order-simulator.js";
 import { renderOptionsFundamentals } from "./options-fundamentals.js";
 import { renderOptionsChain } from "./options-chain.js";
@@ -31,6 +32,7 @@ import { renderReferencePage } from "./reference.js";
 import { getKnownRoutes } from "../data/navigation.js";
 import {
   DESKTOP_MODES,
+  PLATFORM_HUB_ROUTES,
   GREEKS_ROUTES,
   OPTION_CHAIN_ROUTES,
   OPTION_FUNDAMENTAL_TOPICS,
@@ -54,7 +56,7 @@ function showFatalError(error) {
       <p>Refresh the page to try again. Your locally saved learning data has not been sent anywhere.</p>
     </section>
   `;
-  console.error("IBKR Masterclass initialization failed", error);
+  console.error("IBKR Platform Mastery initialization failed", error);
 }
 
 function updateShellProgress(storage) {
@@ -114,27 +116,32 @@ function startApplication() {
     if (name === "dashboard") {
       breadcrumbSection.textContent = "Learning center";
       breadcrumbPage.textContent = "Dashboard";
-      document.title = "Dashboard · IBKR Masterclass";
+      document.title = "Dashboard · IBKR Platform Mastery";
       renderDashboard(pageContent, storage.get());
     } else if (name === "roadmap") {
       breadcrumbSection.textContent = "Learning center";
       breadcrumbPage.textContent = "Roadmap";
-      document.title = "Learning roadmap · IBKR Masterclass";
+      document.title = "Learning roadmap · IBKR Platform Mastery";
       renderRoadmapPage(pageContent, storage.get());
     } else if (name === "my-notes") {
       breadcrumbSection.textContent = "Personal workspace";
       breadcrumbPage.textContent = "My notes";
-      document.title = "My notes · IBKR Masterclass";
+      document.title = "My notes · IBKR Platform Mastery";
       pageCleanup = renderNotesPage(pageContent, storage.get());
     } else if (name === "bookmarks") {
       breadcrumbSection.textContent = "Personal workspace";
       breadcrumbPage.textContent = "Bookmarks";
-      document.title = "Bookmarks · IBKR Masterclass";
+      document.title = "Bookmarks · IBKR Platform Mastery";
       renderBookmarksPage(pageContent, storage.get());
-    } else if (DESKTOP_MODES[name]) {
-      breadcrumbSection.textContent = "IBKR Desktop lab";
+    } else if (PLATFORM_HUB_ROUTES[name]) {
+      breadcrumbSection.textContent = "Official IBKR platforms";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
+      renderPlatformHub(pageContent, { storage, initialPlatform: PLATFORM_HUB_ROUTES[name] });
+    } else if (DESKTOP_MODES[name]) {
+      breadcrumbSection.textContent = "Concept lab";
+      breadcrumbPage.textContent = getPlannedRouteContext(name).title;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderDesktopSimulator(pageContent, { storage, initialMode: DESKTOP_MODES[name] });
     } else if (ORDER_VIEWS[name]) {
       breadcrumbSection.textContent = "Orders & execution";

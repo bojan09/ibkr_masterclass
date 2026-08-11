@@ -1,7 +1,10 @@
 import { REFERENCE_TOPICS } from "./reference.js";
 
 export const DESKTOP_MODES = {
-  "start-here/desktop-tour": "tour", "practice/desktop-simulator": "workspace", "ibkr-desktop/navigation": "tour", "ibkr-desktop/watchlists": "watchlist", "ibkr-desktop/search": "search", "ibkr-desktop/instrument-pages": "instrument", "ibkr-desktop/charts": "instrument", "ibkr-desktop/portfolio": "portfolio",
+};
+export const PLATFORM_HUB_ROUTES = {
+  platforms: "all", "platforms/desktop": "ibkr-desktop", "platforms/tws": "tws-mosaic", "platforms/safety": "safety",
+  "start-here/desktop-tour": "ibkr-desktop", "practice/desktop-simulator": "all", "ibkr-desktop/navigation": "ibkr-desktop", "ibkr-desktop/watchlists": "ibkr-desktop", "ibkr-desktop/search": "ibkr-desktop", "ibkr-desktop/instrument-pages": "ibkr-desktop", "ibkr-desktop/charts": "ibkr-desktop", "ibkr-desktop/portfolio": "ibkr-desktop",
 };
 export const ORDER_VIEWS = {
   "ibkr-desktop/order-ticket": "simulator", "ibkr-desktop/orders": "execution", "ibkr-desktop/trades": "execution", "trading-basics/order-types": "academy", "trading-basics/time-in-force": "academy", "trading-basics/execution": "execution", "practice/order-simulator": "simulator",
@@ -16,5 +19,5 @@ export const PRACTICE_VIEWS = { "practice/paper-trading": "paper", "practice/tra
 
 const FOUNDATION_ROUTES = new Set(["dashboard", "roadmap", "my-notes", "bookmarks"]);
 export function isStandaloneExperienceRoute(route) {
-  return FOUNDATION_ROUTES.has(route) || route in DESKTOP_MODES || route in ORDER_VIEWS || route in OPTION_FUNDAMENTAL_TOPICS || OPTION_CHAIN_ROUTES.has(route) || GREEKS_ROUTES.has(route) || PAYOFF_ROUTES.has(route) || route === "options/ibkr-desktop" || route === "options/risk" || route.startsWith("account-risk/") || route in PRACTICE_VIEWS || route === "practice/quizzes" || route === "reference/glossary" || route in REFERENCE_TOPICS;
+  return FOUNDATION_ROUTES.has(route) || route in PLATFORM_HUB_ROUTES || route in DESKTOP_MODES || route in ORDER_VIEWS || route in OPTION_FUNDAMENTAL_TOPICS || OPTION_CHAIN_ROUTES.has(route) || GREEKS_ROUTES.has(route) || PAYOFF_ROUTES.has(route) || route === "options/ibkr-desktop" || route === "options/risk" || route.startsWith("account-risk/") || route in PRACTICE_VIEWS || route === "practice/quizzes" || route === "reference/glossary" || route in REFERENCE_TOPICS;
 }

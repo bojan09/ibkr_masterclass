@@ -10,6 +10,16 @@ export const NAVIGATION_GROUPS = [
     ],
   },
   {
+    label: "Official IBKR platforms",
+    shortLabel: "Platforms",
+    items: [
+      { label: "Platform tracks", route: "platforms", marker: "IB" },
+      { label: "IBKR Desktop", route: "platforms/desktop" },
+      { label: "TWS / Mosaic", route: "platforms/tws" },
+      { label: "Paper-trading safety", route: "platforms/safety" },
+    ],
+  },
+  {
     label: "Start here",
     shortLabel: "Start",
     items: [
@@ -100,7 +110,7 @@ export const NAVIGATION_GROUPS = [
     label: "Practice",
     shortLabel: "Practice",
     items: [
-      { label: "IBKR Desktop simulator", route: "practice/desktop-simulator" },
+      { label: "Platform mission companion", route: "practice/desktop-simulator" },
       { label: "Order simulator", route: "practice/order-simulator" },
       { label: "Options chain simulator", route: "practice/options-chain" },
       { label: "Payoff simulator", route: "practice/payoff-simulator" },

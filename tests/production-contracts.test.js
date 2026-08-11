@@ -17,6 +17,8 @@ test("static shell provides security, accessibility, and responsive foundations"
   assert.match(html, /name="viewport"/);
   assert.match(html, /id="theme-select"/);
   assert.match(html, /data-theme-preference/);
+  assert.match(html, /IBKR Platform Mastery/);
+  assert.match(html, /not affiliated with, endorsed by, or connected to Interactive Brokers/i);
   assert.match(read("css/main.css"), /:focus-visible/);
   assert.match(read("css/responsive.css"), /prefers-reduced-motion/);
   assert.match(read("css/responsive.css"), /min-height: 44px/);
