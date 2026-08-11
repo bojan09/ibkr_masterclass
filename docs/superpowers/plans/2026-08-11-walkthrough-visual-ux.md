@@ -460,20 +460,23 @@ git commit -m "feat: redesign platform learning as Walkthroughs"
 
 ---
 
-### Task 6: Add responsive themed gallery presentation
+### Task 6: Correct Light mode and add responsive gallery presentation
 
 **Files:**
+- Modify: `css/variables.css`
 - Modify: `css/components.css`
+- Modify: `css/lessons.css`
+- Modify: `css/simulator.css`
 - Modify: `css/responsive.css`
 - Modify: `tests/production-contracts.test.js`
 
 **Interfaces:**
 - Consumes: catalog group, four-section navigation, gallery, panel, thumbnail, disclosure, and controls markup from Tasks 4–5.
-- Produces: responsive Light/Dark/System presentation without page-level overflow.
+- Produces: readable theme-aware shared surfaces plus responsive Light/Dark/System gallery presentation without page-level overflow.
 
 - [ ] **Step 1: Add failing production-style contracts**
 
-Require selectors for `.walkthrough-group`, `.walkthrough-steps`, `.mission-visual-gallery`, `.mission-visual-thumbnails`, selected tabs, hidden panels, controls, provenance, mobile horizontal thumbnail scrolling, and minimum touch targets.
+Require semantic theme tokens plus selectors for `.walkthrough-group`, `.walkthrough-steps`, `.mission-visual-gallery`, `.mission-visual-thumbnails`, selected tabs, hidden panels, controls, provenance, mobile horizontal thumbnail scrolling, and minimum touch targets.
 
 ```js
 assert.match(components, /\.walkthrough-steps/);
@@ -483,15 +486,29 @@ assert.match(components, /\[aria-selected="true"\]/);
 assert.match(components, /\.mission-visual-panel\[hidden\]/);
 assert.match(responsive, /overflow-x:\s*auto/);
 assert.match(responsive, /min-height:\s*44px/);
+assert.match(variables, /--gradient-panel:/);
+assert.match(variables, /:root\[data-theme="light"\][\s\S]*--gradient-panel:/);
+
+for (const [name, css] of Object.entries({ components, lessons, simulator })) {
+  assert.doesNotMatch(css, /background[^;]*(?:#0d1218|#0e1319|#0c1016|#10151c)/i, name);
+}
 ```
 
 - [ ] **Step 2: Run the contract test and verify failure**
 
 Run: `node --test tests/production-contracts.test.js`
 
-Expected: FAIL because the new selectors do not exist.
+Expected: FAIL because the new selectors and semantic gradient tokens do not exist, and shared surfaces still contain dark-only gradient endpoints.
 
-- [ ] **Step 3: Implement catalog, section, and gallery styles**
+- [ ] **Step 3: Introduce semantic surface tokens and remove dark-only shared backgrounds**
+
+Add `--gradient-panel`, `--gradient-panel-accent`, `--gradient-panel-warning`, `--gradient-panel-success`, `--gradient-panel-info`, `--color-image-canvas`, and `--color-decorative-line` to both the default Dark theme and the Light-theme override. Dark values preserve the current appearance; Light values use white-to-cool-gray panels and lightly tinted white endpoints.
+
+Replace the hard-coded dark gradient endpoints in `components.css`, `lessons.css`, and `simulator.css` with these tokens. Replace hard-coded gray text used for roadmap nodes, titles, statuses, card metadata, and diagram labels with `--color-muted` or `--color-subtle`. Keep the screenshot frame on `--color-image-canvas` so official images are not recolored.
+
+The defect hypothesis is confirmed when the production contract no longer finds dark-only endpoints and the Dashboard roadmap/track surfaces resolve entirely through theme variables.
+
+- [ ] **Step 4: Implement catalog, section, and gallery styles**
 
 Reuse existing CSS variables and button styles. Add:
 
@@ -506,11 +523,11 @@ Reuse existing CSS variables and button styles. Add:
 
 Use `[hidden] { display: none; }` only within the panel selector so native hidden behavior is explicit and scoped.
 
-- [ ] **Step 4: Implement mobile behavior**
+- [ ] **Step 5: Implement mobile behavior**
 
 At the existing mobile breakpoint, stack navigation labels as a compact grid, keep gallery actions at least 44px high, make thumbnails horizontally scrollable, keep the selected image full width, and prevent page-level horizontal overflow. Retain existing mobile dialog sizing.
 
-- [ ] **Step 5: Run style contracts and the full suite**
+- [ ] **Step 6: Run style contracts and the full suite**
 
 Run: `node --test tests/production-contracts.test.js tests/platform-visual-renderer.test.js tests/platform-missions.test.js`
 
@@ -518,11 +535,11 @@ Then run: `npm.cmd test`
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit responsive presentation**
+- [ ] **Step 7: Commit theme correction and responsive presentation**
 
 ```powershell
-git add css/components.css css/responsive.css tests/production-contracts.test.js
-git commit -m "feat: style responsive Walkthrough galleries"
+git add css/variables.css css/components.css css/lessons.css css/simulator.css css/responsive.css tests/production-contracts.test.js
+git commit -m "fix: restore readable Light mode surfaces"
 ```
 
 ---
@@ -618,7 +635,69 @@ git add scripts/audit-platform-visuals.mjs README.md tests/production-contracts.
 git commit -m "docs: verify Walkthrough visual UX"
 ```
 
-- [ ] **Step 9: Merge locally and push the verified result**
+- [ ] **Step 9: Hand off to the final sweep**
+
+Do not merge yet. Continue to Task 8 for the independent bug, UI/UX, accessibility, and performance sweep.
+
+---
+
+### Task 8: Final bug, UI/UX, accessibility, and performance sweep
+
+**Files:**
+- Modify only files required by a reproduced defect.
+- Modify: `docs/superpowers/plans/2026-08-11-walkthrough-visual-ux.md`
+
+**Interfaces:**
+- Consumes: the complete feature and verification record from Tasks 1–7.
+- Produces: defect-free verified release, local merge, and authorized GitHub push.
+
+- [ ] **Step 1: Run the functional bug sweep**
+
+Exercise every published route through route-coverage tests, rerun the full suite, verify storage migration/recovery, and inspect console/runtime errors on representative navigation. Reproduce every discovered issue in a focused failing test before editing production code.
+
+- [ ] **Step 2: Run the UI/UX and theme sweep**
+
+Inspect the Dashboard, Roadmap, a lesson, a Concept Lab, an assessment, Desktop Walkthroughs, and TWS Walkthroughs in both Light and Dark themes. Verify visual hierarchy, contrast, readable locked states, focus indicators, keyboard order, 44px mobile controls, responsive overflow, gallery clarity, source disclosure, and consistent Walkthrough terminology.
+
+Specifically compare the corrected Light Dashboard roadmap and track cards with the user-supplied defect screenshot: shared cards must use light surfaces, headings/body/status must remain readable, and decorative geometry must no longer dominate content.
+
+- [ ] **Step 3: Run the accessibility sweep**
+
+Verify landmark order, heading order, `aria-selected`/tabpanel relationships, status announcements, dialog names and focus restoration, alternative text, form labels, native disclosure behavior, reduced-motion compatibility, and keyboard-only gallery completion. Add focused tests for any failed contract before fixing it.
+
+- [ ] **Step 4: Run the performance sweep**
+
+Measure production file counts and total static byte size, confirm zero runtime dependencies, confirm screenshots use lazy loading and asynchronous decoding, verify only the selected gallery image is eager enough for first-view usability, and check that duplicate source/image requests are avoided. Record the static asset total and largest production files. Do not add bundlers or speculative optimization.
+
+- [ ] **Step 5: Fix reproduced sweep defects with TDD**
+
+For each defect: add one failing test, observe the expected failure, make the narrowest root-cause fix, rerun the focused test, then rerun `npm.cmd test`. Stop expanding once all sweep criteria pass.
+
+- [ ] **Step 6: Run the final release gate**
+
+Run:
+
+```powershell
+npm.cmd test
+node scripts/audit-platform-visuals.mjs
+$jsFiles = Get-ChildItem -Path . -Recurse -File -Filter '*.js'
+foreach ($jsFile in $jsFiles) { node --check $jsFile.FullName; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }
+git diff --check
+git status --short
+```
+
+Expected: all tests, remote audits, syntax checks, and diff checks PASS; the worktree is clean after the final verification commit.
+
+- [ ] **Step 7: Record sweep results and improvements**
+
+Append functional, UI/UX, accessibility, and performance results to this plan. List every evidence-backed improvement added beyond the initial Walkthrough request so the user can review them tomorrow. Commit the record:
+
+```powershell
+git add docs/superpowers/plans/2026-08-11-walkthrough-visual-ux.md
+git commit -m "docs: record final Walkthrough quality sweep"
+```
+
+- [ ] **Step 8: Merge locally and push the verified result**
 
 Use the finishing-a-development-branch workflow. Fast-forward `codex/walkthrough-visual-ux` into `master`, rerun `npm.cmd test` on the merged tree, delete the feature branch only after a green post-merge suite, stop the temporary local server, and confirm `master` is clean.
 
