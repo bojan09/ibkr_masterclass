@@ -254,10 +254,10 @@ const RAW_VISUALS = [
     sourceUpdated: TWS_GUIDE_UPDATED,
     productVersionNote: "Mosaic panels can be moved, resized, removed, and grouped differently from this default layout.",
     callouts: [
-      { id: "tws-monitor-panel", label: "Monitor panel", x: 18, y: 48 },
-      { id: "tws-chart-panel", label: "Chart panel", x: 51, y: 28 },
-      { id: "tws-order-entry-panel", label: "Order Entry panel", x: 79, y: 38 },
-      { id: "tws-activity-panel", label: "Activity panel", x: 64, y: 75 },
+      { id: "tws-monitor-panel", label: "Monitor panel", x: 78, y: 30 },
+      { id: "tws-chart-panel", label: "Chart panel", x: 28, y: 50 },
+      { id: "tws-order-entry-panel", label: "Order Entry panel", x: 26, y: 14 },
+      { id: "tws-activity-panel", label: "Activity panel", x: 28, y: 82 },
     ],
   }),
   guideVisual({
@@ -394,7 +394,7 @@ const RAW_VISUALS = [
     missionIds: ["tws-risk-review"],
     title: "TWS Performance Profile",
     alt: "Official TWS Performance Profile screenshot showing modeled profit and loss, price scenarios, and strategy metrics.",
-    sourceUrl: "https://www.ibkrguides.com/tws/usersguidebook/mosaic/performanceprofile.htm",
+    sourceUrl: "https://www.ibkrguides.com/traderworkstation/performance-profile.htm",
     imagePath: "resources/images/performanceprofile1.png",
     sourceLabel: "TWS User Guide — Performance Profile",
     sourceUpdated: TWS_GUIDE_UPDATED,

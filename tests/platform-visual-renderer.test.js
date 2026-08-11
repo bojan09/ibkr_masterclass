@@ -21,7 +21,7 @@ test("mission visual markup is attributed, accessible, enlargeable, and recovera
 test("mission visual markup connects numbered markers to a text legend", () => {
   const html = renderMissionVisuals("tws-mosaic-layout");
   assert.match(html, /class="mission-visual-marker"/);
-  assert.match(html, /style="--marker-x: 18%; --marker-y: 48%"/);
+  assert.match(html, /style="--marker-x: 78%; --marker-y: 30%"/);
   assert.match(html, /<ol class="mission-visual-legend"/);
   assert.match(html, /Monitor panel/);
   assert.match(html, /Order Entry panel/);

@@ -50,3 +50,19 @@ test("the visual catalog is immutable", () => {
   assert.equal(Object.isFrozen(PLATFORM_VISUALS), true);
   assert.ok(PLATFORM_VISUALS.every((visual) => Object.isFrozen(visual) && Object.isFrozen(visual.missionIds) && Object.isFrozen(visual.callouts)));
 });
+
+test("TWS risk review uses the current official Performance Profile asset", () => {
+  const [visual] = getMissionVisuals("tws-risk-review");
+  assert.equal(visual.sourceUrl, "https://www.ibkrguides.com/traderworkstation/performance-profile.htm");
+  assert.equal(visual.imageUrl, "https://www.ibkrguides.com/traderworkstation/resources/images/performanceprofile1.png");
+});
+
+test("TWS Mosaic overview callouts identify the panels shown in the official image", () => {
+  const [visual] = getMissionVisuals("tws-mosaic-layout");
+  assert.deepEqual(visual.callouts, [
+    { id: "tws-monitor-panel", label: "Monitor panel", x: 78, y: 30 },
+    { id: "tws-chart-panel", label: "Chart panel", x: 28, y: 50 },
+    { id: "tws-order-entry-panel", label: "Order Entry panel", x: 26, y: 14 },
+    { id: "tws-activity-panel", label: "Activity panel", x: 28, y: 82 },
+  ]);
+});

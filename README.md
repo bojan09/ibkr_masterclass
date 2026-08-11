@@ -12,6 +12,7 @@ This project is not affiliated with, endorsed by, or connected to Interactive Br
 - Completion tracking, sequential lesson prerequisites, bookmarks, recent lessons, and searchable local notes
 - Sourced IBKR Desktop track with 15 real-application missions
 - Sourced TWS/Mosaic track with 17 real-application missions
+- Embedded official IBKR screenshots with source dates, callouts, enlargement, and guide links
 - Ten-task Desktop-versus-TWS equivalence map
 - Persistent Dark, Light, and System appearance modes
 - Paper-session safety gates and locally stored completion evidence
@@ -59,6 +60,7 @@ There is no framework, backend, package dependency, transpiler, bundler, or prod
 │   ├── platforms.js           # Official-product metadata and source dates
 │   ├── platform-workflows.js  # Desktop and TWS real-application missions
 │   ├── platform-equivalents.js # Cross-platform workflow mapping
+│   ├── platform-visuals.js    # Official screenshot provenance and mission mapping
 │   ├── route-manifest.js      # Published route-to-experience contract
 │   ├── simulated-*.js         # Centralized fake market and option data
 │   └── *.js                   # Orders, options, risk, practice, assessments, reference
@@ -98,6 +100,21 @@ Then open `http://127.0.0.1:4173/`.
 5. Reconfirm the application name, account mode, contract, and order details whenever a mission asks for those evidence checks. Stop if any of them are uncertain.
 
 The companion stores only learning progress in this browser. Do not paste credentials, account numbers, balances, positions, statements, or brokerage exports into its notes or journal.
+
+## Official screenshot references
+
+Every genuine-platform mission embeds one or more official IBKR screenshots published by Interactive Brokers. Each visual names the product, identifies its exact official guide, shows the guide's update date and this project's review date, and links back to the source. Numbered markers are separate overlays; the underlying screenshot is not recolored or edited.
+
+Screenshots are recognition aids, while the current installed Paper Trading application remains the source of truth. Your interface can differ because of a later IBKR release, operating system, application theme, account permissions, market-data subscriptions, or workspace customization. If a control does not match, stop and open the linked official guide before continuing.
+
+The screenshots remain on official IBKR hosts rather than being copied into this repository. Loading a mission therefore makes an external image request to `ibkrguides.com` or `interactivebrokers.com`. The page uses a `no-referrer` policy, so the current learning route is not sent as the request referrer. If an official image is moved or unavailable, the written mission remains usable and shows a direct source-page fallback.
+
+To maintain the catalog after a major Desktop or TWS release:
+
+1. Review the affected official guide page and its displayed update date.
+2. Update the corresponding record in `data/platform-visuals.js`, including its image URL, source date, review date, version note, and callout coordinates.
+3. Run `node --test tests/platform-visuals.test.js tests/platform-visual-renderer.test.js`.
+4. Inspect the affected mission in desktop/mobile widths and Light/Dark modes before publishing.
 
 ## Verification
 

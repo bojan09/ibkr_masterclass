@@ -73,3 +73,11 @@ test("production identity never presents the removed imitation Desktop lab", () 
   assert.match(read("README.md"), /^# IBKR Platform Mastery/m);
   assert.match(read("css/variables.css"), /:root\[data-theme="light"\]/);
 });
+
+test("documentation explains official screenshot provenance and privacy", () => {
+  const readme = read("README.md");
+  assert.match(readme, /official IBKR screenshots/i);
+  assert.match(readme, /external image request/i);
+  assert.match(readme, /screenshots[^\n]+source of truth/i);
+  assert.match(readme, /no-referrer/i);
+});

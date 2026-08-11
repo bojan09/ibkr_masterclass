@@ -341,7 +341,7 @@ git commit -m "feat: style secure responsive IBKR visual guides"
 - Consumes: complete catalog, renderer, styles, and CSP.
 - Produces: final source audit, verification record, and user-facing maintenance instructions.
 
-- [ ] **Step 1: Add documentation contracts**
+- [x] **Step 1: Add documentation contracts**
 
 Extend the production contract to assert that README documents:
 
@@ -351,15 +351,15 @@ assert.match(read("README.md"), /external image request/i);
 assert.match(read("README.md"), /screenshots.*source of truth/i);
 ```
 
-- [ ] **Step 2: Update user and maintenance documentation**
+- [x] **Step 2: Update user and maintenance documentation**
 
 Document that mission pages load official screenshots from IBKR hosts, show source/update labels, and may differ from the installed application because of later releases, operating system, permissions, theme, or workspace customization. Explain the external image request and `no-referrer` policy. Add a maintenance procedure: review each source after a major Desktop/TWS release, update image URL/date/callouts, run `tests/platform-visuals.test.js`, and visually inspect the affected mission.
 
-- [ ] **Step 3: Verify remote image availability**
+- [x] **Step 3: Verify remote image availability**
 
 Run a PowerShell audit that sends GET requests to every unique `imageUrl` and `sourceUrl` imported from `PLATFORM_VISUALS`, requiring a 2xx status and an image content type for image URLs. Record counts without downloading files into the repository.
 
-- [ ] **Step 4: Run complete automated verification**
+- [x] **Step 4: Run complete automated verification**
 
 Run: `npm.cmd test`
 
@@ -373,11 +373,11 @@ Run: `git diff --check`
 
 Expected: no whitespace errors.
 
-- [ ] **Step 5: Perform visual and interaction smoke tests**
+- [x] **Step 5: Perform visual and interaction smoke tests**
 
 Serve with `python -m http.server 4173`. Inspect Desktop interface, Watchlist, Rapid Order Entry, Option Chain, TWS Mosaic, Order Entry, and TWS Option Chain missions in desktop/mobile sizes and Light/Dark modes. Confirm authentic images load, attribution matches, markers align approximately, dialog opens/closes with mouse and keyboard, focus returns, broken-image fallback works, and no horizontal overflow occurs.
 
-- [ ] **Step 6: Record results and commit**
+- [x] **Step 6: Record results and commit**
 
 Mark plan checkboxes complete and append exact test, source-audit, syntax, and visual results.
 
@@ -389,3 +389,15 @@ git commit -m "docs: verify official IBKR visual guides"
 - [ ] **Step 7: Merge locally after final verification**
 
 Use the finishing-a-development-branch workflow. Merge `codex/ibkr-official-visual-guides` into `master`, rerun `npm.cmd test` on the merged result, and delete the feature branch only after a green post-merge suite.
+
+## Results (2026-08-11)
+
+- Catalog: 22 visual records provide at least one official reference for all 32 Desktop and TWS/Mosaic missions.
+- Remote source audit: 22/22 unique image assets and 18/18 unique official source pages returned successful responses; every image returned an image content type.
+- Automated verification: 122 tests passed, 0 failed, 0 skipped.
+- Syntax verification: 47 JavaScript modules parsed successfully.
+- Repository audit: 0 local raster screenshot files; `git diff --check` passed.
+- Local serving: HTTP 200 with all screenshot routes loaded under the narrowed Content Security Policy.
+- Visual verification: Desktop interface, Watchlist, Rapid Order Entry, Option Chain, and TWS Mosaic inspected in Light/Dark and desktop/mobile layouts.
+- Interaction verification: the enlarged viewer opened and closed, Escape-compatible native dialog state closed correctly, focus returned to the opener, simulated image failure revealed the fallback, and the tested mission had no horizontal overflow.
+- Defects found and corrected during verification: one outdated Performance Profile asset path and four inaccurate TWS Mosaic callout coordinates.
