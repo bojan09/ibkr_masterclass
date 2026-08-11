@@ -158,11 +158,11 @@ export function renderDashboard(container, state) {
             <span class="hero__divider" aria-hidden="true"></span>
             Curriculum 01–13
           </div>
-          <h1 id="dashboard-title">Master <span>Interactive Brokers.</span></h1>
-          <p class="hero__subtitle">Learn IBKR Desktop, options, execution and risk from beginner to confident platform user.</p>
+          <h1 id="dashboard-title">Master the genuine <span>IBKR platforms.</span></h1>
+          <p class="hero__subtitle">Practice in official IBKR Desktop and TWS paper applications with sourced missions, then use Concept Labs for order, options, and risk mechanics.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="#/${nextLesson.route}">Continue learning <span aria-hidden="true">→</span></a>
-            <a class="button button--secondary" href="#/roadmap">Explore the curriculum</a>
+            <a class="button button--primary" href="#/platforms">Open platform tracks <span aria-hidden="true">→</span></a>
+            <a class="button button--secondary" href="#/${nextLesson.route}">Continue foundations</a>
           </div>
           <p class="hero__disclaimer"><span aria-hidden="true">i</span> Educational environment · No live market data or trading</p>
         </div>

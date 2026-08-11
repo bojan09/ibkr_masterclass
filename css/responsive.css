@@ -114,14 +114,30 @@
   }
 
   .topbar__right .sync-status,
+  .theme-control > span,
   .breadcrumb span,
   .breadcrumb i {
     display: none;
   }
 
-  .data-badge {
-    padding: 5px 8px;
-    font-size: 8px;
+  .topbar .data-badge {
+    display: none;
+  }
+
+  .page-hero > div {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .platform-compare .page-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .platform-compare .page-hero > div,
+  .platform-compare .page-hero p {
+    width: auto;
+    max-width: 100%;
   }
 
   .main-content {
@@ -234,6 +250,48 @@
   summary,
   .button {
     min-height: 44px;
+  }
+}
+
+@media (max-width: 760px) {
+  .mission-visual-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mission-visual-card__heading,
+  .mission-visual-dialog > footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mission-visual-marker {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mission-visual-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+  }
+
+  .mission-visual-dialog > div {
+    max-height: calc(100vh - 190px);
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar__right {
+    gap: 8px;
+  }
+
+  .mission-visual-actions,
+  .mission-visual-actions .button,
+  .mission-visual-actions .text-link {
+    width: 100%;
+  }
+
+  .mission-visual-actions .text-link {
+    justify-content: center;
   }
 }
 

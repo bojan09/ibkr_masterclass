@@ -204,7 +204,7 @@ export function renderDesktopSimulator(container, { storage, initialMode = "work
     container.innerHTML = `<section class="desktop-learning-page">
       <header class="simulator-intro"><div><p class="eyebrow">Phase 4 · IBKR Desktop mastery</p><h1>Desktop training workspace</h1><p>An independent educational reconstruction for learning workflow and contract verification. It is not connected to Interactive Brokers.</p></div><span class="simulation-badge">SIMULATED DATA · ${SIMULATION_AS_OF.slice(0, 10)}</span></header>
       <div class="desktop-simulator" data-tour-root>
-        <header class="desktop-simulator__bar"><strong>IBKR Masterclass Desktop Lab</strong><button type="button" data-action="show-search" data-hotspot="search">Search contracts</button><span>Paper learning mode</span></header>
+        <header class="desktop-simulator__bar"><strong>Historical Concept Lab</strong><button type="button" data-action="show-search" data-hotspot="search">Search simulated contracts</button><span>Not an IBKR interface</span></header>
         <div class="desktop-simulator__body">
           <nav class="desktop-simulator__rail" aria-label="Simulator sections">
             <button type="button" data-view="workspace" class="${state.mode === "workspace" ? "is-active" : ""}">Home</button>

@@ -89,7 +89,7 @@
   align-items: center;
   gap: 8px;
   padding: 9px 13px;
-  border: 1px solid #303946;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   background: rgb(255 255 255 / 0.025);
   color: var(--color-text-soft);
@@ -120,7 +120,7 @@
 .lesson-progress span {
   height: 3px;
   border-radius: 99px;
-  background: #29313c;
+  background: var(--color-panel-3);
 }
 
 .lesson-progress span.is-reached {
@@ -196,7 +196,7 @@
   width: 32px;
   height: 32px;
   place-items: center;
-  border: 1px solid #343d49;
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   color: #7a8592;
   font-size: 8px;
@@ -236,7 +236,7 @@
 
 .lesson-comparison-card {
   padding: 18px;
-  border: 1px solid #2c3541;
+  border: 1px solid var(--color-border);
   border-radius: 9px;
   background: rgb(0 0 0 / 0.16);
 }
@@ -287,7 +287,7 @@
   padding: 11px 13px;
   grid-template-columns: 18px 1fr;
   gap: 8px;
-  border: 1px solid #2b3440;
+  border: 1px solid var(--color-border);
   border-radius: 7px;
   color: var(--color-text-soft);
   font-size: 11px;
@@ -431,9 +431,9 @@
 .lesson-tool-card textarea,
 .library-search input {
   width: 100%;
-  border: 1px solid #2d3642;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #0a0e13;
+  background: var(--color-bg-soft);
   color: var(--color-text-soft);
   resize: vertical;
 }
@@ -612,7 +612,7 @@
   width: 38px;
   height: 38px;
   place-items: center;
-  border: 1px solid #37414e;
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   background: var(--color-bg);
   color: var(--color-subtle);
@@ -623,7 +623,7 @@
   width: 1px;
   min-height: 46px;
   flex: 1;
-  background: #252d38;
+  background: var(--color-panel-3);
 }
 
 .curriculum-module--current .curriculum-module__phase,
@@ -678,13 +678,13 @@
   align-items: center;
   grid-template-columns: 22px 1fr auto;
   gap: 9px;
-  border: 1px solid #252e39;
+  border: 1px solid var(--color-border);
   border-radius: 7px;
   background: rgb(0 0 0 / 0.1);
 }
 
 .module-lessons a:hover {
-  border-color: #3a4655;
+  border-color: var(--color-border);
   background: rgb(255 255 255 / 0.025);
 }
 
@@ -803,7 +803,7 @@
   grid-column: 1 / -1;
   place-items: center;
   padding: 36px;
-  border: 1px dashed #2d3642;
+  border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
   text-align: center;
 }

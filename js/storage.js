@@ -1,4 +1,4 @@
-export const APP_STORAGE_VERSION = 2;
+export const APP_STORAGE_VERSION = 4;
 export const APP_STORAGE_KEY = "ibkr-masterclass-state";
 
 const DEFAULT_STATE = Object.freeze({
@@ -12,11 +12,13 @@ const DEFAULT_STATE = Object.freeze({
   settings: {
     sidebarCollapsed: false,
     reducedMotion: false,
+    theme: "system",
   },
   recentLessons: [],
   practiceTrades: [],
   simulatorHistory: [],
   simulatorState: {},
+  platformEvidence: {},
   journalEntries: [],
   checklistCompletion: {},
   learningStatistics: {
@@ -44,6 +46,7 @@ const OBJECT_KEYS = new Set([
   "checklistCompletion",
   "learningStatistics",
   "simulatorState",
+  "platformEvidence",
 ]);
 
 function clone(value) {
@@ -84,7 +87,8 @@ function isValidValue(key, value) {
     return (
       isPlainObject(value) &&
       typeof value.sidebarCollapsed === "boolean" &&
-      typeof value.reducedMotion === "boolean"
+      typeof value.reducedMotion === "boolean" &&
+      ["dark", "light", "system"].includes(value.theme)
     );
   }
   if (key === "learningStatistics") {
@@ -108,6 +112,14 @@ function migrate(rawState) {
   let migrated = clone(rawState);
   if (version === 0) migrated = { ...migrated, version: 1 };
   if (migrated.version === 1) migrated = { ...migrated, version: 2, simulatorState: {} };
+  if (migrated.version === 2) {
+    migrated = {
+      ...migrated,
+      version: 3,
+      settings: { ...DEFAULT_STATE.settings, ...(isPlainObject(migrated.settings) ? migrated.settings : {}) },
+    };
+  }
+  if (migrated.version === 3) migrated = { ...migrated, version: 4, platformEvidence: {} };
 
   return migrated;
 }
