@@ -15,6 +15,7 @@ import {
 import { createRouter } from "./router.js";
 import { createStorage } from "./storage.js";
 import { createSidebarController } from "./ui.js";
+import { createThemeController } from "./theme.js";
 import { renderDesktopSimulator } from "./desktop-simulator.js";
 import { renderOrderSimulator } from "./order-simulator.js";
 import { renderOptionsFundamentals } from "./options-fundamentals.js";
@@ -76,6 +77,10 @@ function startApplication() {
   const syncStatus = getRequiredElement("sync-status");
   const storage = createStorage();
   const state = storage.get();
+  const themeController = createThemeController({
+    select: getRequiredElement("theme-select"),
+    storage,
+  });
 
   storage.set("settings", state.settings);
   syncStatus.innerHTML = storage.isPersistent()
@@ -217,6 +222,7 @@ function startApplication() {
       router.stop();
       pageCleanup();
       sidebarController.destroy();
+      themeController.destroy();
     },
     { once: true },
   );

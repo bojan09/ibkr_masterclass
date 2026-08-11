@@ -9,12 +9,14 @@ const read = (path) => readFileSync(join(root, path), "utf8");
 
 test("static shell provides security, accessibility, and responsive foundations", () => {
   const html = read("index.html");
-  assert.match(html, /<html lang="en">/);
+  assert.match(html, /<html lang="en"[^>]*>/);
   assert.match(html, /Content-Security-Policy/);
   assert.match(html, /class="skip-link"/);
   assert.match(html, /<main[^>]+tabindex="-1"/);
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /name="viewport"/);
+  assert.match(html, /id="theme-select"/);
+  assert.match(html, /data-theme-preference/);
   assert.match(read("css/main.css"), /:focus-visible/);
   assert.match(read("css/responsive.css"), /prefers-reduced-motion/);
   assert.match(read("css/responsive.css"), /min-height: 44px/);

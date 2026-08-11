@@ -114,6 +114,7 @@
   }
 
   .topbar__right .sync-status,
+  .theme-control > span,
   .breadcrumb span,
   .breadcrumb i {
     display: none;

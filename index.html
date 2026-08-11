@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-theme-preference="system">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,6 +68,14 @@
             </nav>
           </div>
           <div class="topbar__right">
+            <label class="theme-control" for="theme-select">
+              <span>Appearance</span>
+              <select id="theme-select" aria-label="Appearance theme">
+                <option value="system">System</option>
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </label>
             <span class="data-badge"><i aria-hidden="true"></i> Educational mode</span>
             <span class="sync-status" id="sync-status"><span aria-hidden="true">◇</span> Saved locally</span>
           </div>

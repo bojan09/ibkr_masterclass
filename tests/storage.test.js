@@ -28,6 +28,7 @@ test("storage supplies the complete default foundation state", () => {
   assert.deepEqual(state.settings, {
     sidebarCollapsed: false,
     reducedMotion: false,
+    theme: "system",
   });
   assert.deepEqual(state.completedLessons, []);
   assert.deepEqual(state.quizScores, {});
@@ -50,6 +51,7 @@ test("storage persists valid top-level updates", () => {
   const saved = storage.set("settings", {
     sidebarCollapsed: true,
     reducedMotion: false,
+    theme: "light",
   });
 
   assert.equal(saved.sidebarCollapsed, true);
@@ -87,7 +89,7 @@ test("storage recovers from malformed JSON and unsupported versions", () => {
 
 test("remove restores a field default and reset restores all defaults", () => {
   const storage = createStorage({ backend: createMemoryBackend(), key: "test-state" });
-  storage.set("settings", { sidebarCollapsed: true, reducedMotion: true });
+  storage.set("settings", { sidebarCollapsed: true, reducedMotion: true, theme: "dark" });
   storage.set("recentLessons", ["brokerage-basics"]);
 
   storage.remove("settings");
@@ -95,6 +97,21 @@ test("remove restores a field default and reset restores all defaults", () => {
 
   storage.reset();
   assert.deepEqual(storage.get("recentLessons"), []);
+});
+
+test("storage migrates version two settings to the system theme", () => {
+  const legacy = JSON.stringify({
+    version: 2,
+    settings: { sidebarCollapsed: true, reducedMotion: false },
+  });
+  const storage = createStorage({ backend: createMemoryBackend(legacy), key: "test-state" });
+
+  assert.equal(APP_STORAGE_VERSION, 3);
+  assert.deepEqual(storage.get("settings"), {
+    sidebarCollapsed: true,
+    reducedMotion: false,
+    theme: "system",
+  });
 });
 
 test("storage falls back to memory when the backend is unavailable", () => {
