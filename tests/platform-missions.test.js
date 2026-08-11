@@ -52,3 +52,29 @@ test("mission source review status changes after its review date", () => {
   assert.equal(isWorkflowStale(workflow, new Date("2027-03-01")), true);
   assert.equal(getPlatformWorkflows(workflow.platformId).includes(workflow), true);
 });
+
+test("Desktop and TWS tracks cover orientation, orders, options, and position review", () => {
+  assert.deepEqual(getPlatformWorkflows("ibkr-desktop").map((item) => item.id), [
+    "desktop-install", "desktop-paper-check", "desktop-interface", "desktop-portfolio",
+    "desktop-watchlist", "desktop-contract-search", "desktop-chart", "desktop-customize",
+    "desktop-rapid-order", "desktop-preview", "desktop-monitor-order", "desktop-modify-cancel",
+    "desktop-option-chain", "desktop-strategy-builder", "desktop-position-review",
+  ]);
+  assert.deepEqual(getPlatformWorkflows("tws-mosaic").map((item) => item.id), [
+    "tws-install", "tws-paper-check", "tws-mosaic-layout", "tws-window-grouping", "tws-monitor",
+    "tws-quote", "tws-chart", "tws-portfolio", "tws-activity", "tws-customize",
+    "tws-order-entry", "tws-order-preview", "tws-order-monitor", "tws-attached-orders",
+    "tws-option-chain", "tws-combination", "tws-risk-review",
+  ]);
+});
+
+test("submission-capable missions require four independent order safety checks", () => {
+  const required = ["confirm-platform", "confirm-paper", "confirm-contract", "confirm-order"];
+  const submissionMissions = PLATFORM_WORKFLOWS.filter((item) => item.submissionCapable);
+  assert.ok(submissionMissions.length >= 8);
+  for (const workflow of submissionMissions) {
+    const evidence = workflow.evidence.map((item) => item.id);
+    assert.ok(required.every((id) => evidence.includes(id)), workflow.id);
+    assert.doesNotMatch(workflow.steps.join(" "), /live account|submit a live|real money/i);
+  }
+});
