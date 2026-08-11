@@ -19,6 +19,7 @@ import { createThemeController } from "./theme.js";
 import { renderDesktopSimulator } from "./desktop-simulator.js";
 import { renderPlatformHub } from "./platform-hub.js";
 import { renderPlatformMissions } from "./platform-missions.js";
+import { renderPlatformCompare } from "./platform-compare.js";
 import { PLATFORM_WORKFLOWS, getWorkflowByRoute } from "../data/platform-workflows.js";
 import { renderOrderSimulator } from "./order-simulator.js";
 import { renderOptionsFundamentals } from "./options-fundamentals.js";
@@ -136,6 +137,11 @@ function startApplication() {
       breadcrumbPage.textContent = "Bookmarks";
       document.title = "Bookmarks · IBKR Platform Mastery";
       renderBookmarksPage(pageContent, storage.get());
+    } else if (name === "platforms/compare") {
+      breadcrumbSection.textContent = "Official IBKR platforms";
+      breadcrumbPage.textContent = "Desktop vs TWS";
+      document.title = "Desktop vs TWS · IBKR Platform Mastery";
+      renderPlatformCompare(pageContent);
     } else if (name === "platforms/desktop/missions" || name === "platforms/tws/missions") {
       const platformId = name.includes("/desktop/") ? "ibkr-desktop" : "tws-mosaic";
       breadcrumbSection.textContent = "Official-app missions";

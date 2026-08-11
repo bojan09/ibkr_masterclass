@@ -1,0 +1,23 @@
+const REQUIRED_TASKS = Object.freeze(["contract-search", "watchlist", "portfolio", "order-entry", "order-status", "charts", "option-chain", "settings", "account-information", "window-linking"]);
+
+export const PLATFORM_EQUIVALENTS = Object.freeze([
+  { id: "contract-search", task: "Find and verify a contract", kind: "equivalent", desktop: { location: "Global search box in the top-left", workflowId: "desktop-contract-search" }, tws: { location: "Symbol selector in Quote, Monitor, or Order Entry", workflowId: "tws-quote" }, explanation: "Both return contract choices; verify product, venue, currency, and full derivative identity before selection." },
+  { id: "watchlist", task: "Create and use a watchlist", kind: "equivalent", desktop: { location: "Watchlists icon in the Left Navigation panel", workflowId: "desktop-watchlist" }, tws: { location: "Watchlist tab inside the Mosaic Monitor Panel", workflowId: "tws-monitor" }, explanation: "Watchlists synchronize in the IBKR ecosystem, but their surrounding controls and panel behavior differ." },
+  { id: "portfolio", task: "Review positions", kind: "equivalent", desktop: { location: "Portfolio > Positions", workflowId: "desktop-portfolio" }, tws: { location: "Portfolio tab in the Mosaic Monitor Panel", workflowId: "tws-portfolio" }, explanation: "Both expose positions and P&L; the available columns, account windows, and grouping controls are platform-specific." },
+  { id: "order-entry", task: "Create and preview an order", kind: "equivalent", desktop: { location: "Rapid Order Entry on the right side; Advanced opens the full ticket", workflowId: "desktop-rapid-order" }, tws: { location: "Mosaic Order Entry panel linked by group color", workflowId: "tws-order-entry" }, explanation: "The verification sequence is the same, but TWS exposes more persistent and advanced panel controls." },
+  { id: "order-status", task: "Monitor or change an order", kind: "equivalent", desktop: { location: "Portfolio > Orders & Trades", workflowId: "desktop-monitor-order" }, tws: { location: "Mosaic Activity > Orders", workflowId: "tws-order-monitor" }, explanation: "Submitted, working, canceled, and completed states must be confirmed in the relevant activity view." },
+  { id: "charts", task: "Inspect and configure a chart", kind: "equivalent", desktop: { location: "Advanced Chart on the Quote page", workflowId: "desktop-chart" }, tws: { location: "Mosaic Chart Panel", workflowId: "tws-chart" }, explanation: "Both support advanced charting, but TWS panel grouping and optional ChartTrader controls add operational complexity." },
+  { id: "option-chain", task: "Select an option contract", kind: "equivalent", desktop: { location: "Quote > Option Chain", workflowId: "desktop-option-chain" }, tws: { location: "New Window > Option Chain", workflowId: "tws-option-chain" }, explanation: "Both require the same contract verification even though filters, views, and Order Entry integration differ." },
+  { id: "settings", task: "Customize platform information", kind: "equivalent", desktop: { location: "Preferences gear in the Left Navigation panel", workflowId: "desktop-customize" }, tws: { location: "Panel settings plus workspace and Global Configuration controls", workflowId: "tws-customize" }, explanation: "Desktop emphasizes views and application preferences; TWS distributes settings across panels, layouts, and Global Configuration." },
+  { id: "account-information", task: "Inspect balances and margin context", kind: "non-equivalent", desktop: { location: "Portfolio > Balances", workflowId: "desktop-portfolio" }, tws: { location: "Account Information from Monitor plus Portfolio margin fields", workflowId: "tws-portfolio" }, explanation: "TWS provides a deeper account-information surface, so similarly named values may appear in different windows and groupings." },
+  { id: "window-linking", task: "Keep tools focused on one symbol", kind: "non-equivalent", desktop: { location: "Page and selected-instrument context; no Mosaic-style color groups", workflowId: "desktop-interface" }, tws: { location: "Colored grouping blocks on Mosaic panels", workflowId: "tws-window-grouping" }, explanation: "Color-linked windows are a defining Mosaic workflow and should not be projected onto IBKR Desktop's navigation model." },
+]);
+
+export function getEquivalentTask(id) {
+  return PLATFORM_EQUIVALENTS.find((item) => item.id === id);
+}
+
+export function getComparisonCoverage() {
+  const published = new Set(PLATFORM_EQUIVALENTS.map((item) => item.id));
+  return { required: [...REQUIRED_TASKS], missing: REQUIRED_TASKS.filter((id) => !published.has(id)) };
+}

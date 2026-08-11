@@ -1271,3 +1271,11 @@
 .platform-mission legend { margin-bottom: 10px; font-size: 18px; font-weight: 700; }
 .platform-mission fieldset label { display: grid; padding: 12px; grid-template-columns: 20px 1fr; gap: 8px; border: 1px solid var(--color-border-soft); border-radius: var(--radius-sm); color: var(--color-text-soft); }
 @media (max-width: 760px) { .mission-review-grid { grid-template-columns: 1fr; } }
+.platform-compare { display: grid; gap: 22px; }
+.comparison-table-wrap { overflow-x: auto; border: 1px solid var(--color-border-soft); border-radius: var(--radius-lg); background: var(--color-panel); }
+.comparison-table { width: 100%; min-width: 920px; border-collapse: collapse; }
+.comparison-table th, .comparison-table td { padding: 16px; border-bottom: 1px solid var(--color-border-soft); color: var(--color-muted); line-height: 1.5; text-align: left; vertical-align: top; }
+.comparison-table thead th { color: var(--color-text-soft); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
+.comparison-table tbody th { color: var(--color-text); }
+.comparison-table td a { display: block; margin-top: 9px; color: var(--color-info); font-size: 10px; }
+.comparison-kind { display: block; margin-bottom: 6px; color: var(--color-accent-bright); font-family: var(--font-mono); font-size: 8px; text-transform: uppercase; }

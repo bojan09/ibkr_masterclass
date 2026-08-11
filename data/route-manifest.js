@@ -19,5 +19,5 @@ export const PRACTICE_VIEWS = { "practice/paper-trading": "paper", "practice/tra
 
 const FOUNDATION_ROUTES = new Set(["dashboard", "roadmap", "my-notes", "bookmarks"]);
 export function isStandaloneExperienceRoute(route) {
-  return FOUNDATION_ROUTES.has(route) || route in PLATFORM_HUB_ROUTES || route in DESKTOP_MODES || route in ORDER_VIEWS || route in OPTION_FUNDAMENTAL_TOPICS || OPTION_CHAIN_ROUTES.has(route) || GREEKS_ROUTES.has(route) || PAYOFF_ROUTES.has(route) || route === "options/ibkr-desktop" || route === "options/risk" || route.startsWith("account-risk/") || route in PRACTICE_VIEWS || route === "practice/quizzes" || route === "reference/glossary" || route in REFERENCE_TOPICS;
+  return FOUNDATION_ROUTES.has(route) || route === "platforms/compare" || route in PLATFORM_HUB_ROUTES || route in DESKTOP_MODES || route in ORDER_VIEWS || route in OPTION_FUNDAMENTAL_TOPICS || OPTION_CHAIN_ROUTES.has(route) || GREEKS_ROUTES.has(route) || PAYOFF_ROUTES.has(route) || route === "options/ibkr-desktop" || route === "options/risk" || route.startsWith("account-risk/") || route in PRACTICE_VIEWS || route === "practice/quizzes" || route === "reference/glossary" || route in REFERENCE_TOPICS;
 }

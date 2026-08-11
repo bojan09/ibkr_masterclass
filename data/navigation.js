@@ -16,6 +16,7 @@ export const NAVIGATION_GROUPS = [
       { label: "Platform tracks", route: "platforms", marker: "IB" },
       { label: "IBKR Desktop", route: "platforms/desktop" },
       { label: "TWS / Mosaic", route: "platforms/tws" },
+      { label: "Desktop vs TWS", route: "platforms/compare" },
       { label: "Paper-trading safety", route: "platforms/safety" },
     ],
   },
