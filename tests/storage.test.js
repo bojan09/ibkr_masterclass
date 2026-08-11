@@ -34,6 +34,7 @@ test("storage supplies the complete default foundation state", () => {
   assert.deepEqual(state.quizScores, {});
   assert.deepEqual(state.practiceTrades, []);
   assert.deepEqual(state.journalEntries, []);
+  assert.deepEqual(state.platformEvidence, {});
 });
 
 test("storage returns cloned values that callers cannot mutate", () => {
@@ -99,19 +100,20 @@ test("remove restores a field default and reset restores all defaults", () => {
   assert.deepEqual(storage.get("recentLessons"), []);
 });
 
-test("storage migrates version two settings to the system theme", () => {
+test("storage migrates version two settings and platform evidence through the current version", () => {
   const legacy = JSON.stringify({
     version: 2,
     settings: { sidebarCollapsed: true, reducedMotion: false },
   });
   const storage = createStorage({ backend: createMemoryBackend(legacy), key: "test-state" });
 
-  assert.equal(APP_STORAGE_VERSION, 3);
+  assert.equal(APP_STORAGE_VERSION, 4);
   assert.deepEqual(storage.get("settings"), {
     sidebarCollapsed: true,
     reducedMotion: false,
     theme: "system",
   });
+  assert.deepEqual(storage.get("platformEvidence"), {});
 });
 
 test("storage falls back to memory when the backend is unavailable", () => {

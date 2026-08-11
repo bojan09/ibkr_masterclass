@@ -18,6 +18,8 @@ import { createSidebarController } from "./ui.js";
 import { createThemeController } from "./theme.js";
 import { renderDesktopSimulator } from "./desktop-simulator.js";
 import { renderPlatformHub } from "./platform-hub.js";
+import { renderPlatformMissions } from "./platform-missions.js";
+import { PLATFORM_WORKFLOWS, getWorkflowByRoute } from "../data/platform-workflows.js";
 import { renderOrderSimulator } from "./order-simulator.js";
 import { renderOptionsFundamentals } from "./options-fundamentals.js";
 import { renderOptionsChain } from "./options-chain.js";
@@ -100,7 +102,7 @@ function startApplication() {
 
   let hasRendered = false;
   let pageCleanup = () => {};
-  const knownRoutes = new Set([...getKnownRoutes(), ...LESSONS.map((lesson) => lesson.route)]);
+  const knownRoutes = new Set([...getKnownRoutes(), ...LESSONS.map((lesson) => lesson.route), "platforms/desktop/missions", "platforms/tws/missions", ...PLATFORM_WORKFLOWS.map((workflow) => workflow.route)]);
   const handleLearningStateChange = () => {
     updateShellProgress(storage);
     syncStatus.innerHTML = storage.isPersistent()
@@ -111,6 +113,7 @@ function startApplication() {
     pageCleanup();
     pageCleanup = () => {};
     const lesson = getLessonByRoute(name);
+    const platformWorkflow = getWorkflowByRoute(name);
     setActiveNavigation(navigationRoot, lesson?.navRoute ?? name);
 
     if (name === "dashboard") {
@@ -133,6 +136,17 @@ function startApplication() {
       breadcrumbPage.textContent = "Bookmarks";
       document.title = "Bookmarks · IBKR Platform Mastery";
       renderBookmarksPage(pageContent, storage.get());
+    } else if (name === "platforms/desktop/missions" || name === "platforms/tws/missions") {
+      const platformId = name.includes("/desktop/") ? "ibkr-desktop" : "tws-mosaic";
+      breadcrumbSection.textContent = "Official-app missions";
+      breadcrumbPage.textContent = platformId === "ibkr-desktop" ? "IBKR Desktop" : "TWS / Mosaic";
+      document.title = `${breadcrumbPage.textContent} missions · IBKR Platform Mastery`;
+      renderPlatformMissions(pageContent, { storage, platformId });
+    } else if (platformWorkflow) {
+      breadcrumbSection.textContent = "Official-app mission";
+      breadcrumbPage.textContent = platformWorkflow.title;
+      document.title = `${platformWorkflow.title} · IBKR Platform Mastery`;
+      pageCleanup = renderPlatformMissions(pageContent, { storage, platformId: platformWorkflow.platformId, workflowId: platformWorkflow.id });
     } else if (PLATFORM_HUB_ROUTES[name]) {
       breadcrumbSection.textContent = "Official IBKR platforms";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;

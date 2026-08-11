@@ -1,4 +1,4 @@
-export const APP_STORAGE_VERSION = 3;
+export const APP_STORAGE_VERSION = 4;
 export const APP_STORAGE_KEY = "ibkr-masterclass-state";
 
 const DEFAULT_STATE = Object.freeze({
@@ -18,6 +18,7 @@ const DEFAULT_STATE = Object.freeze({
   practiceTrades: [],
   simulatorHistory: [],
   simulatorState: {},
+  platformEvidence: {},
   journalEntries: [],
   checklistCompletion: {},
   learningStatistics: {
@@ -45,6 +46,7 @@ const OBJECT_KEYS = new Set([
   "checklistCompletion",
   "learningStatistics",
   "simulatorState",
+  "platformEvidence",
 ]);
 
 function clone(value) {
@@ -117,6 +119,7 @@ function migrate(rawState) {
       settings: { ...DEFAULT_STATE.settings, ...(isPlainObject(migrated.settings) ? migrated.settings : {}) },
     };
   }
+  if (migrated.version === 3) migrated = { ...migrated, version: 4, platformEvidence: {} };
 
   return migrated;
 }
