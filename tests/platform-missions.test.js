@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { PLATFORM_WORKFLOWS, getPlatformWorkflows, getWorkflow, getWorkflowByRoute } from "../data/platform-workflows.js";
-import { canCompleteWorkflow, completeWorkflow, isWorkflowStale } from "../js/platform-missions.js";
+import { canCompleteWorkflow, completeWorkflow, isWorkflowStale, renderWorkflow } from "../js/platform-missions.js";
 import { createStorage } from "../js/storage.js";
 
 function memoryBackend() {
@@ -77,4 +77,15 @@ test("submission-capable missions require four independent order safety checks",
     assert.ok(required.every((id) => evidence.includes(id)), workflow.id);
     assert.doesNotMatch(workflow.steps.join(" "), /live account|submit a live|real money/i);
   }
+});
+
+test("mission pages place official visuals before genuine-application steps", () => {
+  const workflow = getWorkflow("desktop-watchlist");
+  const storage = createStorage({ backend: memoryBackend(), key: "visual-mission-state" });
+  const html = renderWorkflow(workflow, storage);
+  const visualIndex = html.indexOf("Recognize the real screen");
+  const stepIndex = html.indexOf("Perform in the genuine application");
+  assert.ok(visualIndex > 0);
+  assert.ok(stepIndex > visualIndex);
+  assert.match(html, /Official IBKR screenshot/);
 });

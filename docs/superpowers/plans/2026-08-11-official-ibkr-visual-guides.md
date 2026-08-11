@@ -191,7 +191,7 @@ git commit -m "feat: catalog official IBKR platform screenshots"
 - Consumes: `getMissionVisuals(missionId)` from Task 1.
 - Produces: `renderMissionVisuals(missionId): string`, `bindMissionVisuals(container): () => void`.
 
-- [ ] **Step 1: Write the failing renderer contract**
+- [x] **Step 1: Write the failing renderer contract**
 
 ```js
 import { renderMissionVisuals } from "../js/platform-visuals.js";
@@ -210,13 +210,13 @@ test("mission visual markup is attributed, accessible, enlargeable, and recovera
 });
 ```
 
-- [ ] **Step 2: Run the renderer test and confirm the missing-module failure**
+- [x] **Step 2: Run the renderer test and confirm the missing-module failure**
 
 Run: `node --test tests/platform-visual-renderer.test.js`
 
 Expected: FAIL with `ERR_MODULE_NOT_FOUND` for `js/platform-visuals.js`.
 
-- [ ] **Step 3: Implement trusted HTML rendering**
+- [x] **Step 3: Implement trusted HTML rendering**
 
 Render a `<section class="mission-visuals">` with one `<figure>` per visual. Each figure includes the original `<img>`, marker buttons/spans positioned with `left: ${x}%` and `top: ${y}%`, an ordered legend, dates in `<time datetime>`, a safe source anchor, a hidden error fallback, and a paired `<dialog>`. Escape every text attribute and text node even though the catalog is validated.
 
@@ -230,11 +230,11 @@ export function renderMissionVisuals(missionId) {
 }
 ```
 
-- [ ] **Step 4: Implement dialog, focus restoration, and image failure**
+- [x] **Step 4: Implement dialog, focus restoration, and image failure**
 
 `bindMissionVisuals(container)` installs one click handler, one close handler per active dialog through delegation, and one capturing `error` handler. Enlarge buttons copy the selected official image URL and alt text into the dialog, call `showModal()` when supported, and fall back to opening the official image anchor otherwise. Closing restores focus to the opener. An image error adds `is-image-error`, hides marker overlays, and reveals the source fallback. The returned cleanup removes every installed listener and closes any open dialog.
 
-- [ ] **Step 5: Integrate visuals before mission steps**
+- [x] **Step 5: Integrate visuals before mission steps**
 
 In `renderWorkflow`, insert `${renderMissionVisuals(workflow.id)}` immediately before the section titled **Perform in the genuine application**. In `renderPlatformMissions`, call `bindMissionVisuals(container)` for workflow routes and compose that cleanup with the evidence-form cleanup.
 
@@ -246,7 +246,7 @@ return () => {
 };
 ```
 
-- [ ] **Step 6: Run focused and full tests**
+- [x] **Step 6: Run focused and full tests**
 
 Run: `node --test tests/platform-visual-renderer.test.js tests/platform-missions.test.js tests/platform-visuals.test.js`
 
@@ -256,7 +256,7 @@ Run: `npm.cmd test`
 
 Expected: all tests PASS.
 
-- [ ] **Step 7: Commit the renderer**
+- [x] **Step 7: Commit the renderer**
 
 ```powershell
 git add js/platform-visuals.js js/platform-missions.js tests/platform-visual-renderer.test.js tests/platform-missions.test.js
