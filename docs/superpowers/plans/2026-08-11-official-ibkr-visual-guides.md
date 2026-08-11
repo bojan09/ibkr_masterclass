@@ -54,7 +54,7 @@
 - Consumes: `PLATFORM_WORKFLOWS` and their stable `id` values.
 - Produces: `ALLOWED_VISUAL_HOSTS`, `PLATFORM_VISUALS`, `isAllowedOfficialVisualUrl(url)`, `validatePlatformVisual(visual)`, `getMissionVisuals(missionId)`.
 
-- [ ] **Step 1: Write the failing provenance and coverage tests**
+- [x] **Step 1: Write the failing provenance and coverage tests**
 
 ```js
 import { PLATFORM_WORKFLOWS } from "../data/platform-workflows.js";
@@ -93,13 +93,13 @@ test("visuals have valid provenance, dates, alt text, and callouts", () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and confirm the missing-module failure**
+- [x] **Step 2: Run the focused test and confirm the missing-module failure**
 
 Run: `node --test tests/platform-visuals.test.js`
 
 Expected: FAIL with `ERR_MODULE_NOT_FOUND` for `data/platform-visuals.js`.
 
-- [ ] **Step 3: Implement URL and schema validation**
+- [x] **Step 3: Implement URL and schema validation**
 
 ```js
 export const ALLOWED_VISUAL_HOSTS = Object.freeze([
@@ -129,7 +129,7 @@ export function validatePlatformVisual(visual) {
 }
 ```
 
-- [ ] **Step 4: Add the complete official image inventory**
+- [x] **Step 4: Add the complete official image inventory**
 
 Create immutable records sourced from these official screen families:
 
@@ -149,7 +149,7 @@ Create immutable records sourced from these official screen families:
 
 Resolve relative guide assets against their page URL with `new URL(relativePath, sourceUrl).href`. Give every record at least one useful callout when the official image visibly contains the named region. For an overview image without a safe precise target, use an empty `callouts` array and an explicit `productVersionNote`.
 
-- [ ] **Step 5: Add mission lookup and freeze the catalog**
+- [x] **Step 5: Add mission lookup and freeze the catalog**
 
 ```js
 export const PLATFORM_VISUALS = Object.freeze(RAW_VISUALS.map((visual) => {
@@ -162,7 +162,7 @@ export function getMissionVisuals(missionId) {
 }
 ```
 
-- [ ] **Step 6: Run focused and full tests**
+- [x] **Step 6: Run focused and full tests**
 
 Run: `node --test tests/platform-visuals.test.js tests/platform-missions.test.js`
 
@@ -172,7 +172,7 @@ Run: `npm.cmd test`
 
 Expected: all tests PASS.
 
-- [ ] **Step 7: Commit the catalog**
+- [x] **Step 7: Commit the catalog**
 
 ```powershell
 git add data/platform-visuals.js tests/platform-visuals.test.js
@@ -389,4 +389,3 @@ git commit -m "docs: verify official IBKR visual guides"
 - [ ] **Step 7: Merge locally after final verification**
 
 Use the finishing-a-development-branch workflow. Merge `codex/ibkr-official-visual-guides` into `master`, rerun `npm.cmd test` on the merged result, and delete the feature branch only after a green post-merge suite.
-
