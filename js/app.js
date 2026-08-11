@@ -166,62 +166,62 @@ function startApplication() {
     } else if (ORDER_VIEWS[name]) {
       breadcrumbSection.textContent = "Orders & execution";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderOrderSimulator(pageContent, { storage, initialView: ORDER_VIEWS[name] });
     } else if (OPTION_FUNDAMENTAL_TOPICS[name]) {
       breadcrumbSection.textContent = "Options fundamentals";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderOptionsFundamentals(pageContent, { initialTopic: OPTION_FUNDAMENTAL_TOPICS[name] });
     } else if (OPTION_CHAIN_ROUTES.has(name)) {
       breadcrumbSection.textContent = "Options chain lab";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderOptionsChain(pageContent);
     } else if (GREEKS_ROUTES.has(name)) {
       breadcrumbSection.textContent = "Greeks & volatility lab";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderGreeksSimulator(pageContent);
     } else if (PAYOFF_ROUTES.has(name)) {
       breadcrumbSection.textContent = "Options strategy lab";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderPayoffSimulator(pageContent);
     } else if (name === "options/ibkr-desktop") {
       breadcrumbSection.textContent = "IBKR options workflow";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderOptionsWorkflow(pageContent, { storage });
     } else if (name === "options/risk" || name.startsWith("account-risk/")) {
       breadcrumbSection.textContent = "Account & risk";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderRiskLab(pageContent, { initialTopic: name.split("/").at(-1) });
     } else if (PRACTICE_VIEWS[name]) {
       breadcrumbSection.textContent = "Practice workspace";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderPracticePage(pageContent, { storage, initialView: PRACTICE_VIEWS[name] });
     } else if (name === "practice/quizzes") {
       breadcrumbSection.textContent = "Assessment center";
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderAssessmentPage(pageContent, { storage });
     } else if (name === "reference/glossary" || REFERENCE_TOPICS[name]) {
       breadcrumbSection.textContent = name.startsWith("reference/") ? "Reference desk" : getPlannedRouteContext(name).section;
       breadcrumbPage.textContent = getPlannedRouteContext(name).title;
-      document.title = `${getPlannedRouteContext(name).title} · IBKR Masterclass`;
+      document.title = `${getPlannedRouteContext(name).title} · IBKR Platform Mastery`;
       pageCleanup = renderReferencePage(pageContent, name);
     } else if (lesson && !isLessonUnlocked(storage.get(), lesson.id)) {
       breadcrumbSection.textContent = "Lesson locked";
       breadcrumbPage.textContent = lesson.title;
-      document.title = `Lesson locked · IBKR Masterclass`;
+      document.title = `Lesson locked · IBKR Platform Mastery`;
       renderLockedLesson(pageContent, lesson);
     } else if (lesson) {
       breadcrumbSection.textContent = `Phase ${getModuleById(lesson.moduleId).phase}`;
       breadcrumbPage.textContent = lesson.title;
-      document.title = `${lesson.title} · IBKR Masterclass`;
+      document.title = `${lesson.title} · IBKR Platform Mastery`;
       pageCleanup = renderLesson(pageContent, lesson, {
         storage,
         onStateChange: handleLearningStateChange,
@@ -230,7 +230,7 @@ function startApplication() {
       const context = getPlannedRouteContext(name);
       breadcrumbSection.textContent = known ? context.section : "Not found";
       breadcrumbPage.textContent = context.title;
-      document.title = `${context.title} · IBKR Masterclass`;
+      document.title = `${context.title} · IBKR Platform Mastery`;
       renderPlannedPage(pageContent, name);
     }
 

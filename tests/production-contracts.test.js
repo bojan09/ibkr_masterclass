@@ -22,6 +22,8 @@ test("static shell provides security, accessibility, and responsive foundations"
   assert.match(read("css/main.css"), /:focus-visible/);
   assert.match(read("css/responsive.css"), /prefers-reduced-motion/);
   assert.match(read("css/responsive.css"), /min-height: 44px/);
+  assert.match(read("css/responsive.css"), /\.platform-compare \.page-hero[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
+  assert.match(read("css/responsive.css"), /\.topbar \.data-badge[\s\S]*display: none/);
 });
 
 test("every local stylesheet and script referenced by index exists", () => {
@@ -54,4 +56,12 @@ test("production runtime is dependency-free and remains within a static asset bu
   const runtimeDirectories = ["css", "data", "js"];
   const runtimeBytes = runtimeDirectories.flatMap((directory) => readdirSync(join(root, directory)).map((name) => join(root, directory, name))).reduce((sum, path) => sum + statSync(path).size, statSync(join(root, "index.html")).size);
   assert.ok(runtimeBytes < 600_000, `Runtime is ${runtimeBytes} bytes`);
+});
+
+test("production identity never presents the removed imitation Desktop lab", () => {
+  const runtime = [read("index.html"), ...readdirSync(join(root, "js")).filter((name) => name.endsWith(".js")).map((name) => read(`js/${name}`))].join("\n");
+  assert.doesNotMatch(runtime, /IBKR Masterclass Desktop Lab/);
+  assert.doesNotMatch(runtime, /IBKR Masterclass curriculum/);
+  assert.match(read("README.md"), /^# IBKR Platform Mastery/m);
+  assert.match(read("css/variables.css"), /:root\[data-theme="light"\]/);
 });

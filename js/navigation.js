@@ -81,7 +81,7 @@ export function renderPlannedPage(container, route) {
       <p class="planned-page__copy">
         ${
           isUnknown
-            ? "That route is not part of the IBKR Masterclass curriculum."
+            ? "That route is not part of the IBKR Platform Mastery curriculum."
             : "This curriculum destination is mapped into the foundation, but its learning content will be built in a later implementation phase."
         }
       </p>

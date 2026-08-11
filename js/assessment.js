@@ -44,7 +44,7 @@ function renderQuiz(quiz, result) {
 }
 
 function renderChallenges() {
-  return `<section class="assessment-challenges"><header><p class="eyebrow">Simulator challenges</p><h2>Demonstrate the workflow</h2><p>A quiz checks recognition. These challenges require observable action and explanation.</p></header><div>${SIMULATOR_CHALLENGES.map((challenge, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${challenge.title}</h3><p>${challenge.goal}</p><a href="#/${challenge.route}">Open simulator challenge →</a></article>`).join("")}</div></section>`;
+  return `<section class="assessment-challenges"><header><p class="eyebrow">Practical challenges</p><h2>Demonstrate the workflow</h2><p>Platform missions require observable evidence in genuine paper applications. Concept Labs test financial mechanics separately.</p></header><div>${SIMULATOR_CHALLENGES.map((challenge, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${challenge.title}</h3><p>${challenge.goal}</p><a href="#/${challenge.route}">Open challenge →</a></article>`).join("")}</div></section>`;
 }
 
 export function renderAssessmentPage(container, { storage } = {}) {
@@ -53,7 +53,7 @@ export function renderAssessmentPage(container, { storage } = {}) {
   const render = () => {
     const readiness = deriveReadiness(storage.get());
     const selected = ASSESSMENT_QUIZZES.find((quiz) => quiz.id === selectedQuizId);
-    container.innerHTML = `<article class="assessment-page"><header class="simulator-intro"><div><p class="eyebrow">Phase 13 · Final assessment</p><h1>Explain the state before acting</h1><p>Quizzes, scenarios, and simulator challenges test contract, order, options, and risk reasoning—not market prediction.</p></div><span class="simulation-badge">EDUCATIONAL ASSESSMENT</span></header>${renderReadiness(readiness)}<nav class="assessment-picker" aria-label="Assessments">${ASSESSMENT_QUIZZES.map((quiz) => `<button type="button" data-select-quiz="${quiz.id}" class="${quiz.id === selectedQuizId ? "is-active" : ""}"><span>${quiz.domain}</span><strong>${quiz.title}</strong><small>${storage.get("quizScores")[quiz.id]?.percent ?? "—"}% best</small></button>`).join("")}</nav>${renderQuiz(selected, currentResult)}${renderChallenges()}</article>`;
+    container.innerHTML = `<article class="assessment-page"><header class="simulator-intro"><div><p class="eyebrow">Phase 13 · Final assessment</p><h1>Explain the state before acting</h1><p>Quizzes, sourced platform missions, and Concept Labs test contract, order, options, and risk reasoning—not market prediction.</p></div><span class="simulation-badge">EDUCATIONAL ASSESSMENT</span></header>${renderReadiness(readiness)}<nav class="assessment-picker" aria-label="Assessments">${ASSESSMENT_QUIZZES.map((quiz) => `<button type="button" data-select-quiz="${quiz.id}" class="${quiz.id === selectedQuizId ? "is-active" : ""}"><span>${quiz.domain}</span><strong>${quiz.title}</strong><small>${storage.get("quizScores")[quiz.id]?.percent ?? "—"}% best</small></button>`).join("")}</nav>${renderQuiz(selected, currentResult)}${renderChallenges()}</article>`;
   };
   const handleClick = (event) => {
     const button = event.target.closest("button");
