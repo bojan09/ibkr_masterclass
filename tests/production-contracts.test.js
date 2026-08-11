@@ -9,6 +9,8 @@ const read = (path) => readFileSync(join(root, path), "utf8");
 
 test("static shell provides security, accessibility, and responsive foundations", () => {
   const html = read("index.html");
+  const components = read("css/components.css");
+  const responsive = read("css/responsive.css");
   assert.match(html, /<html lang="en"[^>]*>/);
   assert.match(html, /Content-Security-Policy/);
   assert.match(html, /class="skip-link"/);
@@ -24,6 +26,12 @@ test("static shell provides security, accessibility, and responsive foundations"
   assert.match(read("css/responsive.css"), /min-height: 44px/);
   assert.match(read("css/responsive.css"), /\.platform-compare \.page-hero[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
   assert.match(read("css/responsive.css"), /\.topbar \.data-badge[\s\S]*display: none/);
+  assert.match(html, /img-src 'self' data: https:\/\/www\.ibkrguides\.com https:\/\/ibkrguides\.com https:\/\/www\.interactivebrokers\.com https:\/\/interactivebrokers\.com/);
+  assert.match(components, /\.mission-visual-card/);
+  assert.match(components, /\.mission-visual-marker/);
+  assert.match(components, /\.mission-visual-card\.is-image-error/);
+  assert.match(components, /\.mission-visual-dialog::backdrop/);
+  assert.match(responsive, /\.mission-visual-layout/);
 });
 
 test("every local stylesheet and script referenced by index exists", () => {

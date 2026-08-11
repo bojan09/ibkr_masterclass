@@ -13,11 +13,13 @@ function formatDate(value) {
   return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 }
 
-function renderCallouts(visual) {
+function renderMarkers(visual) {
+  return visual.callouts.map((callout, index) => `<span class="mission-visual-marker" style="--marker-x: ${callout.x}%; --marker-y: ${callout.y}%" aria-hidden="true">${index + 1}</span>`).join("");
+}
+
+function renderLegend(visual) {
   if (!visual.callouts.length) return "";
-  const markers = visual.callouts.map((callout, index) => `<span class="mission-visual-marker" style="--marker-x: ${callout.x}%; --marker-y: ${callout.y}%" aria-hidden="true">${index + 1}</span>`).join("");
-  const legend = `<ol class="mission-visual-legend" aria-label="Screenshot callouts">${visual.callouts.map((callout) => `<li><span>${visual.callouts.indexOf(callout) + 1}</span>${escapeHtml(callout.label)}</li>`).join("")}</ol>`;
-  return `${markers}${legend}`;
+  return `<ol class="mission-visual-legend" aria-label="Screenshot callouts">${visual.callouts.map((callout, index) => `<li><span>${index + 1}</span>${escapeHtml(callout.label)}</li>`).join("")}</ol>`;
 }
 
 function renderVisualCard(visual) {
@@ -32,13 +34,14 @@ function renderVisualCard(visual) {
       <div class="mission-visual-frame">
         <span class="mission-visual-skeleton" aria-hidden="true"></span>
         <img src="${escapeHtml(visual.imageUrl)}" alt="${escapeHtml(visual.alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-mission-visual-image>
-        ${renderCallouts(visual)}
+        ${renderMarkers(visual)}
         <div class="mission-visual-error" role="status">
           <strong>Official image unavailable</strong>
           <p>The official screenshot could not be loaded. Open the official guide to view the current image.</p>
         </div>
       </div>
       <figcaption>
+        ${renderLegend(visual)}
         <p>${escapeHtml(visual.productVersionNote)}</p>
         <dl class="mission-visual-source">
           <div><dt>Source</dt><dd>${escapeHtml(visual.sourceLabel)}</dd></div>

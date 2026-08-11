@@ -275,7 +275,7 @@ git commit -m "feat: show official screenshots in platform missions"
 - Consumes: class and data attributes emitted by `renderMissionVisuals`.
 - Produces: secure image loading and responsive Dark/Light/System visual presentation.
 
-- [ ] **Step 1: Write failing CSP and presentation contracts**
+- [x] **Step 1: Write failing CSP and presentation contracts**
 
 ```js
 const html = read("index.html");
@@ -289,13 +289,13 @@ assert.match(components, /\.mission-visual-dialog::backdrop/);
 assert.match(responsive, /\.mission-visual-layout/);
 ```
 
-- [ ] **Step 2: Run the production contract and confirm failure**
+- [x] **Step 2: Run the production contract and confirm failure**
 
 Run: `node --test tests/production-contracts.test.js`
 
 Expected: FAIL because the official image hosts and visual styles are absent.
 
-- [ ] **Step 3: Narrowly extend Content Security Policy**
+- [x] **Step 3: Narrowly extend Content Security Policy**
 
 Change only `img-src` to:
 
@@ -305,15 +305,15 @@ img-src 'self' data: https://www.ibkrguides.com https://ibkrguides.com https://w
 
 Keep `connect-src 'none'`, `object-src 'none'`, `base-uri 'self'`, and `form-action 'self'` unchanged.
 
-- [ ] **Step 4: Implement theme-safe visual styles**
+- [x] **Step 4: Implement theme-safe visual styles**
 
 Add styles for `.mission-visuals`, `.mission-visual-card`, `.mission-visual-layout`, `.mission-visual-frame`, `.mission-visual-marker`, `.mission-visual-legend`, `.mission-visual-source`, `.mission-visual-error`, and `.mission-visual-dialog`. Use existing semantic color variables, `aspect-ratio`, `object-fit: contain`, visible focus rings, and no filters on images. Hide `.mission-visual-error` normally; on `.is-image-error`, hide image/markers/skeleton and reveal the error.
 
-- [ ] **Step 5: Add mobile and reduced-motion behavior**
+- [x] **Step 5: Add mobile and reduced-motion behavior**
 
 At `max-width: 760px`, stack the image and legend, reduce dialog padding, cap the image to the viewport, and keep marker targets at least 28 CSS pixels. At `max-width: 480px`, make visual actions full width. Do not animate marker or dialog transforms when `prefers-reduced-motion: reduce` applies.
 
-- [ ] **Step 6: Run focused and full tests**
+- [x] **Step 6: Run focused and full tests**
 
 Run: `node --test tests/production-contracts.test.js tests/platform-visual-renderer.test.js`
 
@@ -323,7 +323,7 @@ Run: `npm.cmd test`
 
 Expected: all tests PASS.
 
-- [ ] **Step 7: Commit secure responsive presentation**
+- [x] **Step 7: Commit secure responsive presentation**
 
 ```powershell
 git add index.html css/components.css css/responsive.css tests/production-contracts.test.js
