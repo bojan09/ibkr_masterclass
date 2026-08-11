@@ -33,6 +33,13 @@
   --color-overlay: rgb(8 10 15 / 0.82);
   --color-sidebar-footer: rgb(8 10 15 / 0.9);
   --color-field: #090d12;
+  --color-image-canvas: #070a0f;
+  --color-decorative-line: #3b4450;
+  --gradient-panel: linear-gradient(145deg, var(--color-panel), #0d1218);
+  --gradient-panel-accent: linear-gradient(145deg, rgb(227 41 69 / 0.08), #10151c 58%);
+  --gradient-panel-warning: linear-gradient(145deg, rgb(240 175 67 / 0.055), #0d1218 55%);
+  --gradient-panel-success: linear-gradient(145deg, rgb(56 201 138 / 0.045), #0d1218 55%);
+  --gradient-panel-info: linear-gradient(145deg, rgb(77 156 255 / 0.045), #0d1218 55%);
 }
 
 :root[data-theme="light"] {
@@ -60,4 +67,11 @@
   --color-overlay: rgb(255 255 255 / 0.9);
   --color-sidebar-footer: rgb(247 249 251 / 0.96);
   --color-field: #ffffff;
+  --color-image-canvas: #e7ebf0;
+  --color-decorative-line: #aeb8c4;
+  --gradient-panel: linear-gradient(145deg, #ffffff, #edf1f5);
+  --gradient-panel-accent: linear-gradient(145deg, rgb(201 31 58 / 0.09), #ffffff 58%);
+  --gradient-panel-warning: linear-gradient(145deg, rgb(137 91 5 / 0.08), #ffffff 55%);
+  --gradient-panel-success: linear-gradient(145deg, rgb(20 122 81 / 0.07), #ffffff 55%);
+  --gradient-panel-info: linear-gradient(145deg, rgb(23 105 194 / 0.07), #ffffff 55%);
 }

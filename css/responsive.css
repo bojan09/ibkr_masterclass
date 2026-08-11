@@ -254,6 +254,26 @@
 }
 
 @media (max-width: 760px) {
+  .walkthrough-group > header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .walkthrough-steps {
+    top: calc(var(--topbar-height) + 6px);
+    overflow-x: auto;
+    grid-template-columns: repeat(4, minmax(92px, 1fr));
+  }
+
+  .mission-visual-gallery__controls button {
+    min-height: 44px;
+  }
+
+  .mission-visual-thumbnails {
+    overflow-x: auto;
+  }
+
   .mission-visual-layout {
     grid-template-columns: minmax(0, 1fr);
   }
