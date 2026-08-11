@@ -7,6 +7,18 @@ export const ASSESSMENT_QUIZZES = [
     q("p3", "What does a watchlist Last field guarantee?", ["The next fill price", "Nothing about the next execution", "A live entitlement"], 1, "Last is a historical reported trade and does not guarantee execution price, availability, or live data status."),
     q("p4", "Which label must appear on this project’s market examples?", ["Guaranteed", "Simulated data", "Real-time"], 1, "The application uses fixed educational values and must distinguish them clearly from real market data."),
   ]},
+  { id: "tws-check", title: "TWS Mosaic navigation", domain: "TWS / Mosaic", questions: [
+    q("t1", "What is the main purpose of Mosaic window grouping?", ["Guarantee fills", "Keep color-linked panels focused on one selected contract", "Merge brokerage accounts"], 1, "Mosaic grouping passes the selected contract among panels sharing a color; it does not change account identity or execution behavior."),
+    q("t2", "Where are pending and executed activities primarily reviewed in Mosaic?", ["Activity Panel", "Chart periodicity", "Quote tear sheet"], 0, "The Activity Panel exposes Orders, Trades, and Trade Summary views for monitoring instructions and executions."),
+    q("t3", "A Watchlist and Order Entry have different grouping colors. What should you expect?", ["Order Entry must follow the Watchlist", "They can retain different selected contracts", "The order is automatically canceled"], 1, "Panels in different Mosaic groups do not have to share symbol focus, so the Order Entry contract must be verified directly.", true),
+    q("t4", "Which workspace does this beginner TWS track teach first?", ["Mosaic", "Classic TWS only", "Client Portal"], 0, "Mosaic is the primary TWS learning workspace here; Classic TWS is an advanced alternative with a different operating model."),
+  ]},
+  { id: "paper-safety-check", title: "Paper-session safety", domain: "Platform safety", questions: [
+    q("s1", "What proves that an order exercise is safe to begin?", ["The portfolio is empty", "The official application visibly identifies Paper Trading", "The chart uses delayed data"], 1, "Only positive account-mode identification in the genuine application establishes the intended paper session."),
+    q("s2", "A mission says Paper Trading but the official application mode is unclear. What should you do?", ["Continue with one small order", "Stop and verify or log back in", "Assume the website controls the account"], 1, "The website has no broker connection and cannot establish account mode; uncertainty requires stopping before any order action.", true),
+    q("s3", "Does a paper fill guarantee comparable live execution?", ["Yes", "Only for limit orders", "No"], 2, "Paper execution can differ from live routing, queue position, liquidity, slippage, and exchange behavior."),
+    q("s4", "What account information should this website store?", ["Broker credentials", "Account number and balance", "Only local learning evidence"], 2, "The companion stores checklist evidence and course progress, never brokerage credentials or confidential account data."),
+  ]},
   { id: "orders-check", title: "Orders & execution", domain: "Execution", questions: [
     q("o1", "A buy limit is below the current ask. What is the honest expectation?", ["It must fill", "It may work without filling", "It becomes a market order"], 1, "A non-marketable limit preserves its price boundary but can remain working or never execute."),
     q("o2", "A sell stop triggers during a gap. Which price is guaranteed?", ["The stop price", "The previous Last", "No exact fill price"], 2, "A stop is a trigger; after activation a market-style instruction can fill away from the trigger."),
@@ -41,7 +53,9 @@ export const ASSESSMENT_QUIZZES = [
 ];
 
 export const SIMULATOR_CHALLENGES = [
-  { id: "desktop", title: "Desktop verification run", route: "practice/desktop-simulator", goal: "Find, verify, watch, and inspect one simulated instrument without opening a real connection." },
+  { id: "desktop", title: "IBKR Desktop verification run", route: "platforms/desktop/missions", goal: "Complete sourced navigation and contract checks in the genuine Desktop paper application." },
+  { id: "tws", title: "TWS Mosaic verification run", route: "platforms/tws/missions", goal: "Use grouping, Order Entry, and Activity safely in genuine TWS PaperTrader." },
+  { id: "compare", title: "Cross-platform transfer", route: "platforms/compare", goal: "Repeat one contract, portfolio, order, and option-chain task in both applications and explain the differences." },
   { id: "order", title: "Order-state prediction", route: "practice/order-simulator", goal: "Predict fill versus working state for three order types, then explain every result." },
   { id: "chain", title: "Chain liquidity comparison", route: "practice/options-chain", goal: "Compare two strikes using bid/ask, volume, open interest, identity, and quote limitations." },
   { id: "payoff", title: "Multi-leg risk reconstruction", route: "practice/payoff-simulator", goal: "Build a vertical, calculate its boundaries, then reverse one leg and identify the new risk." },

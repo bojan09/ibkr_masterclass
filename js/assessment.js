@@ -1,5 +1,7 @@
 import { ASSESSMENT_QUIZZES, SIMULATOR_CHALLENGES } from "../data/assessments.js";
 import { PRACTICE_EXERCISES, TRADE_CHECKLIST } from "../data/practice.js";
+import { PLATFORM_WORKFLOWS } from "../data/platform-workflows.js";
+import { PLATFORM_EQUIVALENTS } from "../data/platform-equivalents.js";
 
 function round(value) { return Math.round(value); }
 
@@ -20,14 +22,21 @@ export function deriveReadiness(state) {
   const practice = round(Math.min(1, completedKeys.filter((id) => id.startsWith("exercise:")).length / PRACTICE_EXERCISES.length) * 100);
   const process = round(Math.min(1, completedKeys.filter((id) => id.startsWith("check-")).length / TRADE_CHECKLIST.length) * 100);
   const reflection = round(Math.min(1, state.journalEntries.length / 3) * 100);
-  const overall = round((knowledge + practice + process + reflection) / 4);
+  const platformEvidence = state.platformEvidence ?? {};
+  const desktopWorkflows = PLATFORM_WORKFLOWS.filter((workflow) => workflow.platformId === "ibkr-desktop");
+  const twsWorkflows = PLATFORM_WORKFLOWS.filter((workflow) => workflow.platformId === "tws-mosaic");
+  const desktop = round(desktopWorkflows.filter((workflow) => platformEvidence[workflow.id]).length / desktopWorkflows.length * 100);
+  const tws = round(twsWorkflows.filter((workflow) => platformEvidence[workflow.id]).length / twsWorkflows.length * 100);
+  const paired = PLATFORM_EQUIVALENTS.filter((item) => platformEvidence[item.desktop.workflowId] && platformEvidence[item.tws.workflowId]).length;
+  const crossPlatform = round(paired / PLATFORM_EQUIVALENTS.length * 100);
+  const overall = round((knowledge + practice + process + reflection + desktop + tws + crossPlatform) / 7);
   const status = overall >= 85 ? "Strong curriculum evidence" : overall >= 60 ? "Developing consistency" : "Building foundations";
-  return { knowledge, practice, process, reflection, overall, status };
+  return { knowledge, practice, process, reflection, desktop, tws, crossPlatform, overall, status };
 }
 
 function renderReadiness(readiness) {
-  const domains = [{ label: "Knowledge", value: readiness.knowledge }, { label: "Practice", value: readiness.practice }, { label: "Process", value: readiness.process }, { label: "Reflection", value: readiness.reflection }];
-  return `<section class="readiness-dashboard"><div class="readiness-overall"><p class="eyebrow">Curriculum evidence</p><strong>${readiness.overall}</strong><span>/ 100</span><h2>${readiness.status}</h2><p>This score measures completed evidence inside IBKR Masterclass. It is not trading authorization, suitability, a prediction, or a guarantee of safety.</p></div><div class="readiness-domains">${domains.map((domain) => `<article><div><span>${domain.label}</span><strong>${domain.value}</strong></div><div class="meter" role="progressbar" aria-label="${domain.label} evidence" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${domain.value}"><i style="width:${domain.value}%"></i></div></article>`).join("")}</div></section>`;
+  const domains = [{ label: "Knowledge", value: readiness.knowledge }, { label: "Practice", value: readiness.practice }, { label: "Process", value: readiness.process }, { label: "Reflection", value: readiness.reflection }, { label: "IBKR Desktop missions", value: readiness.desktop }, { label: "TWS missions", value: readiness.tws }, { label: "Cross-platform", value: readiness.crossPlatform }];
+  return `<section class="readiness-dashboard"><div class="readiness-overall"><p class="eyebrow">Curriculum evidence</p><strong>${readiness.overall}</strong><span>/ 100</span><h2>${readiness.status}</h2><p>This score measures completed evidence inside IBKR Platform Mastery. It is not trading authorization, suitability, a prediction, or a guarantee of safety.</p></div><div class="readiness-domains">${domains.map((domain) => `<article><div><span>${domain.label}</span><strong>${domain.value}</strong></div><div class="meter" role="progressbar" aria-label="${domain.label} evidence" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${domain.value}"><i style="width:${domain.value}%"></i></div></article>`).join("")}</div></section>`;
 }
 
 function renderQuiz(quiz, result) {
