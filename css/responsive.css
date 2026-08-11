@@ -1,0 +1,268 @@
+@media (max-width: 1180px) {
+  :root {
+    --sidebar-width: 256px;
+  }
+
+  .dashboard-grid--primary {
+    grid-template-columns: 1fr;
+  }
+
+  .knowledge-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recommended-card__diagram {
+    opacity: 0.45;
+  }
+
+  .dashboard-grid--activity {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .activity-card--recent {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(88vw, 320px);
+    transform: translateX(-104%);
+    box-shadow: 24px 0 70px rgb(0 0 0 / 0.48);
+    transition: transform var(--transition-base);
+  }
+
+  .sidebar-open {
+    overflow: hidden;
+  }
+
+  .sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar__close,
+  .menu-toggle {
+    display: inline-grid;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    z-index: 35;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 0.62);
+    backdrop-filter: blur(3px);
+  }
+
+  .sidebar-backdrop[hidden] {
+    display: none;
+  }
+
+  .topbar {
+    padding: 0 18px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .hero__progress {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    justify-self: stretch;
+  }
+
+  .hero__phase {
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .progress-ring {
+    width: 126px;
+    height: 126px;
+  }
+
+  .progress-ring__inner strong {
+    font-size: 22px;
+  }
+
+  .metric-grid,
+  .track-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .track-card--active {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --topbar-height: 60px;
+  }
+
+  .topbar__right .sync-status,
+  .breadcrumb span,
+  .breadcrumb i {
+    display: none;
+  }
+
+  .data-badge {
+    padding: 5px 8px;
+    font-size: 8px;
+  }
+
+  .main-content {
+    padding: 16px 12px 48px;
+  }
+
+  .dashboard-page {
+    gap: 14px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 28px 22px;
+    gap: 32px;
+    border-radius: 12px;
+  }
+
+  .hero__kicker {
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 12vw, 54px);
+  }
+
+  .hero__actions,
+  .hero__actions .button {
+    width: 100%;
+  }
+
+  .hero__progress {
+    grid-template-columns: 92px 1fr;
+  }
+
+  .progress-ring {
+    width: 88px;
+    height: 88px;
+    box-shadow: inset 0 0 24px rgb(0 0 0 / 0.35), 0 0 0 6px rgb(255 255 255 / 0.012);
+  }
+
+  .progress-ring__inner strong {
+    font-size: 18px;
+  }
+
+  .progress-ring__inner span {
+    font-size: 7px;
+  }
+
+  .metric-grid,
+  .track-grid,
+  .dashboard-grid--activity,
+  .knowledge-list {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    min-height: 112px;
+  }
+
+  .recommended-card {
+    min-height: 390px;
+    padding: 25px 22px;
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .recommended-card__diagram {
+    right: 20px;
+    bottom: 24px;
+  }
+
+  .knowledge-panel,
+  .roadmap-panel,
+  .track-card,
+  .activity-card {
+    padding: 22px;
+  }
+
+  .roadmap-panel__heading,
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .section-heading > p {
+    text-align: left;
+  }
+
+  .track-card--active,
+  .activity-card--recent {
+    grid-column: auto;
+  }
+
+  .activity-list--recent {
+    grid-template-columns: 1fr;
+  }
+
+  .planned-page {
+    min-height: calc(100vh - var(--topbar-height) - 48px);
+    padding: 40px 12px;
+  }
+
+  .planned-page__actions {
+    justify-content: center;
+  }
+
+  button,
+  input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+  select,
+  summary,
+  .button {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .sidebar,
+  .topbar,
+  .sidebar-backdrop {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
